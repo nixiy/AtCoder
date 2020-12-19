@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -22,6 +23,7 @@ func main() {
 	sc.Split(bufio.ScanWords)
 	N := nextInt()
 	total := 0
+	pastSum := 0
 
 	field := make([]int, N)
 
@@ -29,14 +31,12 @@ func main() {
 		field[i] = nextInt()
 	}
 
-	for i := 0; i < N-1; i++ {
-		for j := i + 1; j < N; j++ {
-			ans := field[i] - field[j]
-			if ans < 0 {
-				ans *= -1
-			}
-			total += ans
-		}
+	sort.Ints(field)
+
+	for j := 0; j < N; j++ {
+		total += field[j] * j
+		total -= pastSum
+		pastSum += field[j]
 	}
 
 	fmt.Println(total)
