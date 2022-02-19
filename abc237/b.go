@@ -46,8 +46,9 @@ func main() {
 			fmt.Print(a[i_h][i_w])
 			if i_h+1 != h {
 				fmt.Print(" ")
+			} else {
+				fmt.Println("")
 			}
 		}
-		fmt.Println("")
 	}
 }
