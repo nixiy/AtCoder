@@ -3,14 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 )
-
-func pow(x, y int) int {
-	return int(math.Pow(float64(x), float64(y)))
-}
 
 var sc = bufio.NewScanner(os.Stdin)
 
@@ -23,11 +18,6 @@ func nextInt() int {
 	return i
 }
 
-func nextStr() string {
-	sc.Scan()
-	return sc.Text()
-}
-
 func main() {
 	sc.Split(bufio.ScanWords)
 	a := nextInt()
@@ -37,6 +27,7 @@ func main() {
 	if a == 1 && b == 10 {
 		fmt.Println("Yes")
 	} else {
+		// 10-1以外のパターンで隣り合う場合はdiffが1になる
 		if b-a == 1 {
 			fmt.Println("Yes")
 		} else {

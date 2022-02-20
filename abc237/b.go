@@ -23,6 +23,11 @@ func nextInt() int {
 	return i
 }
 
+func nextStr() string {
+	sc.Scan()
+	return sc.Text()
+}
+
 func main() {
 	sc.Split(bufio.ScanWords)
 
