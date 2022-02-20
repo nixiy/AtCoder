@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 )
 
 func main() {
@@ -12,4 +13,8 @@ func main() {
 	} else {
 		fmt.Println("No")
 	}
+}
+
+func pow(x, y int) int {
+	return int(math.Pow(float64(x), float64(y)))
 }
