@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 )
@@ -14,15 +13,6 @@ func nextInt() int {
 	sc.Scan()
 	i, _ := strconv.Atoi(sc.Text())
 	return i
-}
-
-func nextStr() string {
-	sc.Scan()
-	return sc.Text()
-}
-
-func pow(x, y int) int64 {
-	return int64(math.Pow(float64(x), float64(y)))
 }
 
 func main() {

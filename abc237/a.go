@@ -5,6 +5,10 @@ import (
 	"math"
 )
 
+func pow(x, y int) int {
+	return int(math.Pow(float64(x), float64(y)))
+}
+
 func main() {
 	var input int
 	fmt.Scanf("%d", &input)
@@ -13,8 +17,4 @@ func main() {
 	} else {
 		fmt.Println("No")
 	}
-}
-
-func pow(x, y int) int {
-	return int(math.Pow(float64(x), float64(y)))
 }
