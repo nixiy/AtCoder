@@ -24,5 +24,6 @@ func nextStr() string {
 func main() {
 	sc.Split(bufio.ScanWords)
 	h := nextInt()
+	// 問題文の数式をそのまま記述して終了
 	fmt.Println(math.Sqrt(float64(h * (12800000 + h))))
 }

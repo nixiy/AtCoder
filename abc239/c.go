@@ -27,6 +27,7 @@ func pow(x, y int) int {
 
 func main() {
 	sc.Split(bufio.ScanWords)
+	// 2次元平面座標(x1, y1), (x2, y2)
 	x1, y1 := nextInt(), nextInt()
 	x2, y2 := nextInt(), nextInt()
 
@@ -42,9 +43,9 @@ func main() {
 	for x := x1 - 2; x <= x1+2; x++ {
 		for y := y1 - 2; y <= y1+2; y++ {
 			// fmt.Println(x, y) // TODO debug
-			ans1 := pow(x1-x, 2) + pow(y1-y, 2)
-			ans2 := pow(x2-x, 2) + pow(y2-y, 2)
-			if ans1 == 5 && ans2 == 5 {
+			ansX := pow(x1-x, 2) + pow(y1-y, 2)
+			ansY := pow(x2-x, 2) + pow(y2-y, 2)
+			if ansX == 5 && ansY == 5 {
 				fmt.Println("Yes")
 				return
 			}
