@@ -3,14 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 )
-
-func pow(x, y int) int {
-	return int(math.Pow(float64(x), float64(y)))
-}
 
 var sc = bufio.NewScanner(os.Stdin)
 

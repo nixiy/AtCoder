@@ -18,8 +18,11 @@ func nextInt() int {
 	return i
 }
 
-func main() {
+func init() {
 	sc.Split(bufio.ScanWords)
+}
+
+func main() {
 	a := nextInt()
 	b := nextInt()
 

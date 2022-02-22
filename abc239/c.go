@@ -16,11 +16,6 @@ func nextInt() int {
 	return i
 }
 
-func nextStr() string {
-	sc.Scan()
-	return sc.Text()
-}
-
 func pow(x, y int) int {
 	return int(math.Pow(float64(x), float64(y)))
 }

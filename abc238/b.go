@@ -16,15 +16,6 @@ func nextInt() int {
 	return i
 }
 
-func nextStr() string {
-	sc.Scan()
-	return sc.Text()
-}
-
-func pow(x, y int) int64 {
-	return int64(math.Pow(float64(x), float64(y)))
-}
-
 func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
 }
