@@ -25,6 +25,10 @@ func pow(x, y int) int64 {
 	return int64(math.Pow(float64(x), float64(y)))
 }
 
+func max(x, y int) int {
+	return int(math.Max(float64(x), float64(y)))
+}
+
 func main() {
 	sc.Split(bufio.ScanWords)
 	n := nextInt()
@@ -44,9 +48,7 @@ func main() {
 
 		// 360度を超えていたら360度に収める
 		// ex 390度 → 360度引く → 30度
-		if currentAngle >= 360 {
-			currentAngle -= 360
-		}
+		currentAngle %= 360
 		pizza[currentAngle] = true // 現在角度に切り込みフラグを立てる
 	}
 
@@ -54,16 +56,11 @@ func main() {
 	angle := 0           // 切り込み間の中心角
 	for i := 0; i < 360; i++ {
 		if pizza[i] {
-			// 最大中心角の更新
-			if maxCentralAngle < angle {
-				maxCentralAngle = angle
-			}
+			maxCentralAngle = max(maxCentralAngle, angle) // 最大中心角の更新
 			angle = 0
 		}
 		angle++
 	}
-	if maxCentralAngle < angle {
-		maxCentralAngle = angle
-	}
+	maxCentralAngle = max(maxCentralAngle, angle) // 最大中心角の更新
 	fmt.Println(maxCentralAngle)
 }
