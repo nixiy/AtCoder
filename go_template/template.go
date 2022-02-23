@@ -54,6 +54,13 @@ func sumArithmeticProgression_d(n, a, d int) int {
 	return (n / 2) * (2*a + (n-1)*d)
 }
 
+// string[i]のように取得するとbyteで取得できてしまう
+// 中間処理でruneを使用して部分文字を取得する
+func getStrForIndex(str string, index int) string {
+	rs := []rune(str)
+	return string(rs[index])
+}
+
 func init() {
 	sc.Split(bufio.ScanWords)
 }
