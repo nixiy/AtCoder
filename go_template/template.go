@@ -54,12 +54,20 @@ func sumArithmeticProgression_d(n, a, d int) int {
 	return (n / 2) * (2*a + (n-1)*d)
 }
 
+func yes() {
+	fmt.Println("Yes")
+}
+
+func no() {
+	fmt.Println("No")
+}
+
 // 頻出するYes No出力用
 func printYesNo(b bool) {
 	if b {
-		fmt.Println("Yes")
+		yes()
 	} else {
-		fmt.Print("No")
+		no()
 	}
 }
 
@@ -68,6 +76,14 @@ func printYesNo(b bool) {
 func getRune(str string, index int) string {
 	rs := []rune(str)
 	return string(rs[index])
+}
+
+func reverse(s string) string {
+	rs := []rune(s)
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		rs[i], rs[j] = rs[j], rs[i]
+	}
+	return string(rs)
 }
 
 func init() {

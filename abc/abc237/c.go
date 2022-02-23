@@ -13,48 +13,75 @@ func nextStr() string {
 	return sc.Text()
 }
 
-func main() {
+func yes() {
+	fmt.Println("Yes")
+}
+
+func no() {
+	fmt.Println("No")
+}
+
+// 頻出するYes No出力用
+func printYesNo(b bool) {
+	if b {
+		yes()
+	} else {
+		no()
+	}
+}
+
+func init() {
 	sc.Split(bufio.ScanWords)
-	s := nextStr()
+}
+
+func reverse(s string) string {
+	rs := []rune(s)
+	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+		rs[i], rs[j] = rs[j], rs[i]
+	}
+	return string(rs)
+}
+
+func solve(s string) {
 	s_len := len(s)
-	prefix_a := 0
-	suffix_a := 0
 
 	// 行頭のaの個数
+	lA := 0
 	for i := 0; i < s_len; i++ {
 		if s[i] == 'a' {
-			prefix_a++
+			lA++
 		} else {
 			break
 		}
 	}
 
 	// 行末のaの個数
+	rA := 0
 	for i := s_len - 1; i >= 0; i-- {
 		if s[i] == 'a' {
-			suffix_a++
+			rA++
 		} else {
 			break
 		}
 	}
 
 	// aのみで構成された文字列の場合OK
-	if prefix_a == s_len {
-		fmt.Println("Yes")
+	if lA == s_len {
+		yes()
 		return
 	}
 
-	// 行頭と行末のaの個数が合わない場合即時No
-	if prefix_a > suffix_a {
-		fmt.Println("No")
+	// 右に多い分には左にaを足せるが、左に多い分は調整不可能な為No
+	if lA > rA {
+		no()
 		return
 	}
 
-	for s_index := prefix_a; s_index < (s_len - suffix_a); s_index++ {
-		if s[s_index] != s[prefix_a+s_len-suffix_a-s_index-1] {
-			fmt.Println("No")
-			return
-		}
-	}
-	fmt.Println("Yes")
+	T := s[lA : s_len-rA] // aを除いた文字列をスライスで取得
+	printYesNo(T == reverse(T))
+}
+
+func main() {
+	s := nextStr()
+	solve(s)
 }
