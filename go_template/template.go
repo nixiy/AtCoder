@@ -54,6 +54,15 @@ func sumArithmeticProgression_d(n, a, d int) int {
 	return (n / 2) * (2*a + (n-1)*d)
 }
 
+// 頻出するYes No出力用
+func printYesNo(b bool) {
+	if b {
+		fmt.Println("Yes")
+	} else {
+		fmt.Print("No")
+	}
+}
+
 // string[i]のように取得するとbyteで取得できてしまう
 // 中間処理でruneを使用して部分文字を取得する
 func getRune(str string, index int) string {
