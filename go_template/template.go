@@ -56,7 +56,7 @@ func sumArithmeticProgression_d(n, a, d int) int {
 
 // string[i]のように取得するとbyteで取得できてしまう
 // 中間処理でruneを使用して部分文字を取得する
-func getStrForIndex(str string, index int) string {
+func getRune(str string, index int) string {
 	rs := []rune(str)
 	return string(rs[index])
 }
