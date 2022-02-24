@@ -91,5 +91,4 @@ func init() {
 }
 
 func main() {
-	// code...
 }
