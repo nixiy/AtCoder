@@ -7,8 +7,6 @@ import (
 	"strconv"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
-
 func main() {
 	a := make([]int, 10)
 	for i := 0; i < 10; i++ {
@@ -22,6 +20,8 @@ func main() {
 
 	fmt.Println(current)
 }
+
+var sc = bufio.NewScanner(os.Stdin)
 
 func nextInt() int {
 	sc.Scan()

@@ -8,9 +8,25 @@ import (
 	"strings"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
-
 const SearchMasuMax = 6
+
+func cntCheck(cnt int) {
+	if cnt >= 4 {
+		yes()
+		os.Exit(0)
+	}
+}
+
+func sharpCheck(S [][]string, tate, yoko, tateK, yokoK int) {
+	cnt := 0
+	// 6マス分数える
+	for k := 0; k < SearchMasuMax; k++ {
+		if S[tate+(k*tateK)][yoko+(k*yokoK)] == "#" {
+			cnt++
+		}
+	}
+	cntCheck(cnt)
+}
 
 func main() {
 	N := nextInt()
@@ -47,6 +63,8 @@ func main() {
 	no()
 }
 
+var sc = bufio.NewScanner(os.Stdin)
+
 func nextInt() int {
 	sc.Scan()
 	i, _ := strconv.Atoi(sc.Text())
@@ -68,22 +86,4 @@ func no() {
 
 func init() {
 	sc.Split(bufio.ScanWords)
-}
-
-func cntCheck(cnt int) {
-	if cnt >= 4 {
-		yes()
-		os.Exit(0)
-	}
-}
-
-func sharpCheck(S [][]string, tate, yoko, tateK, yokoK int) {
-	cnt := 0
-	// 6マス分数える
-	for k := 0; k < SearchMasuMax; k++ {
-		if S[tate+(k*tateK)][yoko+(k*yokoK)] == "#" {
-			cnt++
-		}
-	}
-	cntCheck(cnt)
 }

@@ -8,10 +8,10 @@ import (
 	"strconv"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
-
 func main() {
 }
+
+var sc = bufio.NewScanner(os.Stdin)
 
 func nextInt() int {
 	sc.Scan()

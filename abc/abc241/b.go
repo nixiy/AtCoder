@@ -7,8 +7,6 @@ import (
 	"strconv"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
-
 func main() {
 	pastaNum := nextInt()
 	days := nextInt()
@@ -34,6 +32,8 @@ func main() {
 	}
 	yes()
 }
+
+var sc = bufio.NewScanner(os.Stdin)
 
 func nextInt() int {
 	sc.Scan()
