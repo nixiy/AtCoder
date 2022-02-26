@@ -8,6 +8,9 @@ import (
 	"strconv"
 )
 
+func main() {
+}
+
 var sc = bufio.NewScanner(os.Stdin)
 
 func nextInt() int {
@@ -86,9 +89,30 @@ func reverse(s string) string {
 	return string(rs)
 }
 
-func init() {
-	sc.Split(bufio.ScanWords)
+type intStack []int
+
+func (stack *intStack) push(i int) {
+	*stack = append(*stack, i)
 }
 
-func main() {
+func (stack *intStack) pop() int {
+	result := (*stack)[len(*stack)-1]
+	*stack = (*stack)[:len(*stack)-1]
+	return result
+}
+
+type intQueue []int
+
+func (queue *intQueue) enqueue(i int) {
+	*queue = append(*queue, i)
+}
+
+func (queue *intQueue) dequeue() int {
+	result := (*queue)[0]
+	*queue = (*queue)[1:]
+	return result
+}
+
+func init() {
+	sc.Split(bufio.ScanWords)
 }
