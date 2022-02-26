@@ -10,6 +10,9 @@ import (
 
 var sc = bufio.NewScanner(os.Stdin)
 
+func main() {
+}
+
 func nextInt() int {
 	sc.Scan()
 	i, _ := strconv.Atoi(sc.Text())
@@ -112,7 +115,4 @@ func (queue *intQueue) dequeue() int {
 
 func init() {
 	sc.Split(bufio.ScanWords)
-}
-
-func main() {
 }
