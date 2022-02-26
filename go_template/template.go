@@ -86,6 +86,30 @@ func reverse(s string) string {
 	return string(rs)
 }
 
+type intStack []int
+
+func (stack *intStack) push(i int) {
+	*stack = append(*stack, i)
+}
+
+func (stack *intStack) pop() int {
+	result := (*stack)[len(*stack)-1]
+	*stack = (*stack)[:len(*stack)-1]
+	return result
+}
+
+type intQueue []int
+
+func (queue *intQueue) enqueue(i int) {
+	*queue = append(*queue, i)
+}
+
+func (queue *intQueue) dequeue() int {
+	result := (*queue)[0]
+	*queue = (*queue)[1:]
+	return result
+}
+
 func init() {
 	sc.Split(bufio.ScanWords)
 }
