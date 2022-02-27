@@ -177,6 +177,16 @@ func (queue *intQueue) dequeue() int {
 	return result
 }
 
+// 10進数xを文字列2進数で返す
+func itob(x int) string {
+	s := ""
+	for x > 0 {
+		s = strconv.Itoa(x%2) + s
+		x /= 2
+	}
+	return s
+}
+
 func init() {
 	sc.Split(bufio.ScanWords)
 }
