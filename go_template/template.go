@@ -24,10 +24,12 @@ func nextStr() string {
 	return sc.Text()
 }
 
+// xのy乗
 func pow(x, y int) int {
 	return int(math.Pow(float64(x), float64(y)))
 }
 
+// でかい方を返す
 func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
 }
@@ -42,6 +44,66 @@ func uniq(input []int) (uniq []int) {
 		}
 	}
 	return uniq
+}
+
+// ex chmin(&p, v)
+func chmin(p interface{}, v interface{}) {
+	switch v.(type) {
+	case int:
+		a, ok := p.(*int)
+		if !ok {
+			return
+		}
+		if vv := v.(int); *a > vv {
+			*a = vv
+		}
+	case float32:
+		a, ok := p.(*float32)
+		if !ok {
+			return
+		}
+		if vv := v.(float32); *a > vv {
+			*a = vv
+		}
+	case float64:
+		a, ok := p.(*float64)
+		if !ok {
+			return
+		}
+		if vv := v.(float64); *a > vv {
+			*a = vv
+		}
+	}
+}
+
+// ex chmax(&p, v)
+func chmax(p interface{}, v interface{}) {
+	switch v.(type) {
+	case int:
+		a, ok := p.(*int)
+		if !ok {
+			return
+		}
+		if vv := v.(int); *a < vv {
+			*a = vv
+		}
+	case float32:
+		a, ok := p.(*float32)
+		if !ok {
+			return
+		}
+		if vv := v.(float32); *a < vv {
+			*a = vv
+		}
+	case float64:
+		a, ok := p.(*float64)
+		if !ok {
+			return
+		}
+		if vv := v.(float64); *a < vv {
+			*a = vv
+		}
+	}
 }
 
 // 等差数列の和
@@ -81,6 +143,8 @@ func getRune(str string, index int) string {
 	return string(rs[index])
 }
 
+// sのリバースを返す
+// ex abcd → dcba
 func reverse(s string) string {
 	rs := []rune(s)
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
