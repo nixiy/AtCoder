@@ -9,25 +9,30 @@ import (
 )
 
 func main() {
+	fmt.Println(1e16)
+	fmt.Println(1e32)
+	fmt.Println(1e63)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
 
-func nextInt() int {
+func ni() int {
 	sc.Scan()
 	i, _ := strconv.Atoi(sc.Text())
 	return i
 }
 
-func nextStr() string {
+func ns() string {
 	sc.Scan()
 	return sc.Text()
 }
 
+// xのy乗
 func pow(x, y int) int {
 	return int(math.Pow(float64(x), float64(y)))
 }
 
+// でかい方を返す
 func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
 }
@@ -42,6 +47,20 @@ func uniq(input []int) (uniq []int) {
 		}
 	}
 	return uniq
+}
+
+// ex chmin(&p, v)
+func chmin(p *int, v int) {
+	if *p > v {
+		*p = v
+	}
+}
+
+// ex chmax(&p, v)
+func chmax(p *int, v int) {
+	if *p < v {
+		*p = v
+	}
 }
 
 // 等差数列の和
@@ -81,6 +100,8 @@ func getRune(str string, index int) string {
 	return string(rs[index])
 }
 
+// sのリバースを返す
+// ex abcd → dcba
 func reverse(s string) string {
 	rs := []rune(s)
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
@@ -111,6 +132,16 @@ func (queue *intQueue) dequeue() int {
 	result := (*queue)[0]
 	*queue = (*queue)[1:]
 	return result
+}
+
+// 10進数xを文字列2進数で返す
+func itob(x int) string {
+	s := ""
+	for x > 0 {
+		s = strconv.Itoa(x%2) + s
+		x /= 2
+	}
+	return s
 }
 
 func init() {
