@@ -9,17 +9,20 @@ import (
 )
 
 func main() {
+	fmt.Println(1e16)
+	fmt.Println(1e32)
+	fmt.Println(1e63)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
 
-func nextInt() int {
+func ni() int {
 	sc.Scan()
 	i, _ := strconv.Atoi(sc.Text())
 	return i
 }
 
-func nextStr() string {
+func ns() string {
 	sc.Scan()
 	return sc.Text()
 }
@@ -47,62 +50,16 @@ func uniq(input []int) (uniq []int) {
 }
 
 // ex chmin(&p, v)
-func chmin(p interface{}, v interface{}) {
-	switch v.(type) {
-	case int:
-		a, ok := p.(*int)
-		if !ok {
-			return
-		}
-		if vv := v.(int); *a > vv {
-			*a = vv
-		}
-	case float32:
-		a, ok := p.(*float32)
-		if !ok {
-			return
-		}
-		if vv := v.(float32); *a > vv {
-			*a = vv
-		}
-	case float64:
-		a, ok := p.(*float64)
-		if !ok {
-			return
-		}
-		if vv := v.(float64); *a > vv {
-			*a = vv
-		}
+func chmin(p *int, v int) {
+	if *p > v {
+		*p = v
 	}
 }
 
 // ex chmax(&p, v)
-func chmax(p interface{}, v interface{}) {
-	switch v.(type) {
-	case int:
-		a, ok := p.(*int)
-		if !ok {
-			return
-		}
-		if vv := v.(int); *a < vv {
-			*a = vv
-		}
-	case float32:
-		a, ok := p.(*float32)
-		if !ok {
-			return
-		}
-		if vv := v.(float32); *a < vv {
-			*a = vv
-		}
-	case float64:
-		a, ok := p.(*float64)
-		if !ok {
-			return
-		}
-		if vv := v.(float64); *a < vv {
-			*a = vv
-		}
+func chmax(p *int, v int) {
+	if *p < v {
+		*p = v
 	}
 }
 
