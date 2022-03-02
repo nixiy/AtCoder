@@ -9,9 +9,6 @@ import (
 )
 
 func main() {
-	fmt.Println(1e16)
-	fmt.Println(1e32)
-	fmt.Println(1e63)
 }
 
 var sc = bufio.NewScanner(os.Stdin)

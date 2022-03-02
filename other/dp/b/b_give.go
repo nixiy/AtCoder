@@ -7,15 +7,7 @@ import (
 	"strconv"
 )
 
-func main() {
-	N, K := ni(), ni()
-
-	// dp計算時にout of indexの事を考えるのが面倒なので、予めKマス先までの大きさを確保しておく
-	h := make([]int, N+K)
-	for i := 0; i < N; i++ {
-		h[i] = ni()
-	}
-
+func solve(N, K int, h []int) int {
 	// 🐸の行動としては以下のK択になる
 	// 現在地からi+1の足場に行く
 	// 現在地からi+2の足場に行く
@@ -33,11 +25,25 @@ func main() {
 		// K個先(1indexedな事に注意)
 		for k := 1; k <= K; k++ {
 			// kマス先の値を埋める → min(kマス先のdp値, 現在マスのdp値+高低差の絶対値(現在地高さ+kマス先高さ)
-			chmin(&dp[i+k], dp[i]+abs(h[i]-h[i+k]))
+			if i+k < N {
+				chmin(&dp[i+k], dp[i]+abs(h[i]-h[i+k]))
+			}
 		}
 	}
 
-	fmt.Println(dp[N-1])
+	return dp[N-1]
+}
+
+func main() {
+	N, K := ni(), ni()
+
+	// dp計算時にout of indexの事を考えるのが面倒なので、予めKマス先までの大きさを確保しておく
+	h := make([]int, N+K)
+	for i := 0; i < N; i++ {
+		h[i] = ni()
+	}
+
+	fmt.Println(solve(N, K, h))
 }
 
 var sc = bufio.NewScanner(os.Stdin)
