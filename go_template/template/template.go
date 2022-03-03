@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"os"
+	"sort"
 	"strconv"
 )
 
@@ -32,6 +33,29 @@ func pow(x, y int) int {
 // でかい方を返す
 func max(x, y int) int {
 	return int(math.Max(float64(x), float64(y)))
+}
+
+// 小さい方を返す
+func min(x, y int) int {
+	return int(math.Min(float64(x), float64(y)))
+}
+
+func abs(x int) int {
+	return int(math.Abs(float64(x)))
+}
+
+// 最大公約数: greatest common divisor
+func gcd(a, b int) int {
+	if a%b == 0 {
+		return b
+	} else {
+		return gcd(b, a%b)
+	}
+}
+
+// 最小公倍数
+func lcm(a, b int) int {
+	return a * b / gcd(a, b)
 }
 
 // 数値配列をuniqして返す
@@ -62,15 +86,15 @@ func chmax(p *int, v int) {
 
 // 等差数列の和
 // ただし初項a、項数n、末項lがわかっている場合
-func sumArithmeticProgression_l(n, a, l int) int {
-	fmt.Println("n, a, l: ", n, a, l)
-	return n * (a + l) / 2
+func sumArithmeticProgression_l(n, first, last int) int {
+	fmt.Println("n, first, last: ", n, first, last)
+	return n * (first + last) / 2
 }
 
 // 等差数列の和
 // ただし初項a、項数n、公差dがわかっている場合
-func sumArithmeticProgression_d(n, a, d int) int {
-	return (n / 2) * (2*a + (n-1)*d)
+func sumArithmeticProgression_d(n, first, diff int) int {
+	return (n / 2) * (2*first + (n-1)*diff)
 }
 
 func yes() {
@@ -109,6 +133,10 @@ func reverse(s string) string {
 
 type intStack []int
 
+func (stack *intStack) empty() bool {
+	return len(*stack) == 0
+}
+
 func (stack *intStack) push(i int) {
 	*stack = append(*stack, i)
 }
@@ -120,6 +148,10 @@ func (stack *intStack) pop() int {
 }
 
 type intQueue []int
+
+func (queue *intQueue) empty() bool {
+	return len(*queue) == 0
+}
 
 func (queue *intQueue) enqueue(i int) {
 	*queue = append(*queue, i)
@@ -139,6 +171,58 @@ func itob(x int) string {
 		x /= 2
 	}
 	return s
+}
+
+// target以上を満たす最小の位置を0-basedの添字で返す
+func lowerBound(a []int, target int) int {
+	return sort.SearchInts(a, target)
+}
+
+// targetより大きい最小の位置を0-basedの添字で返す
+func upperBound(a []int, target int) int {
+	return sort.Search(len(a), func(i int) bool { return a[i] > target })
+}
+
+func Permute(nums []int) [][]int {
+	n := factorial(len(nums))
+	ret := make([][]int, 0, n)
+	permute(nums, &ret)
+	return ret
+}
+
+func permute(nums []int, ret *[][]int) {
+	*ret = append(*ret, makeCopy(nums))
+
+	n := len(nums)
+	p := make([]int, n+1)
+	for i := 0; i < n+1; i++ {
+		p[i] = i
+	}
+	for i := 1; i < n; {
+		p[i]--
+		j := 0
+		if i%2 == 1 {
+			j = p[i]
+		}
+
+		nums[i], nums[j] = nums[j], nums[i]
+		*ret = append(*ret, makeCopy(nums))
+		for i = 1; p[i] == 0; i++ {
+			p[i] = i
+		}
+	}
+}
+
+func factorial(n int) int {
+	ret := 1
+	for i := 2; i <= n; i++ {
+		ret *= i
+	}
+	return ret
+}
+
+func makeCopy(nums []int) []int {
+	return append([]int{}, nums...)
 }
 
 func init() {
