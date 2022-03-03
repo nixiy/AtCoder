@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"strconv"
 )
@@ -21,23 +20,6 @@ func ni() int {
 func ns() string {
 	sc.Scan()
 	return sc.Text()
-}
-
-func yes() {
-	fmt.Println("Yes")
-}
-
-func no() {
-	fmt.Println("No")
-}
-
-// 頻出するYes No出力用
-func printYesNo(b bool) {
-	if b {
-		yes()
-	} else {
-		no()
-	}
 }
 
 func init() {
