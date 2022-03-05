@@ -308,25 +308,11 @@ func Test_min(t *testing.T) {
 }
 
 func Test_abs(t *testing.T) {
-	type args struct {
-		x int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{x: 0}, want: 0},
-		{args: args{x: 1}, want: 1},
-		{args: args{x: -1}, want: 1},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := abs(tt.args.x); got != tt.want {
-				t.Errorf("abs() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, 0, abs(0))
+	assert.Equal(t, 1, abs(1))
+	assert.Equal(t, 1, abs(-1))
+	assert.Equal(t, 9223372036854775807, abs(9223372036854775807))
+	assert.Equal(t, 9223372036854775807, abs(-9223372036854775807))
 }
 
 func Test_gcd(t *testing.T) {

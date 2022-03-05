@@ -50,7 +50,11 @@ func min(x, y int) int {
 
 // 絶対値で返す
 func abs(x int) int {
-	return int(math.Abs(float64(x)))
+	if x < 0 {
+		return -x
+	} else {
+		return x
+	}
 }
 
 // 変数の中身を入れ替える
