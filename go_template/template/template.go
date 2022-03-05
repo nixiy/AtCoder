@@ -44,6 +44,10 @@ func abs(x int) int {
 	return int(math.Abs(float64(x)))
 }
 
+func swap(a, b *int) {
+	*b, *a = *a, *b
+}
+
 // 最大公約数: greatest common divisor
 func gcd(a, b int) int {
 	if a%b == 0 {
@@ -97,28 +101,15 @@ func sumArithmeticProgression_d(n, first, diff int) int {
 	return (n / 2) * (2*first + (n-1)*diff)
 }
 
-func yes() {
-	fmt.Println("Yes")
-}
-
-func no() {
-	fmt.Println("No")
-}
-
-// 頻出するYes No出力用
-func printYesNo(b bool) {
-	if b {
-		yes()
-	} else {
-		no()
-	}
-}
-
 // string[i]のように取得するとbyteで取得できてしまう
 // 中間処理でruneを使用して部分文字を取得する
 func getRune(str string, index int) string {
 	rs := []rune(str)
-	return string(rs[index])
+	if 0 <= index && index < len(str) {
+		return string(rs[index])
+	} else {
+		return ""
+	}
 }
 
 // sのリバースを返す
@@ -223,6 +214,74 @@ func factorial(n int) int {
 
 func makeCopy(nums []int) []int {
 	return append([]int{}, nums...)
+}
+
+type UnionFind struct {
+	parent []int // n個目の要素がどの親に属するか
+	height []int // 木の高さ-1
+	rSize  []int // 親配下の要素数(親自身を除く)
+	uSize  int   // UnionFind全体の要素数
+}
+
+func NewUnionFind(size int) UnionFind {
+	uf := UnionFind{}
+	uf.uSize = size
+	uf.parent = make([]int, size)
+	uf.rSize = make([]int, size)
+	uf.height = make([]int, size)
+	for i := 0; i < uf.uSize; i++ {
+		uf.parent[i] = i
+	}
+	return uf
+}
+
+// 木の根を求める
+func (u *UnionFind) Root(x int) int {
+	// speed 優先
+	if u.parent[x] == x {
+		return x
+	}
+	u.parent[x] = u.Root(u.parent[x]) // 経路圧縮
+	return u.parent[x]
+}
+
+// xとyの属する集合をマージ
+func (u *UnionFind) Merge(x, y int) {
+	rootX, rootY := u.Root(x), u.Root(y)
+
+	// 同じ親であれば既にマージ済み
+	if rootX == rootY {
+		return
+	}
+
+	heightX, heightY := u.height[rootX], u.height[rootY]
+	// 後続処理でXにYを付けるため、Yを小さくしておく
+	if heightX < heightY {
+		swap(&rootX, &rootY)
+	}
+	u.parent[rootY] = rootX
+	u.rSize[rootX] = 1 + u.rSize[rootX] + u.rSize[rootY]
+	if heightX == heightY {
+		u.height[rootX]++
+	}
+}
+
+func (u *UnionFind) Size(x int) int {
+	return u.rSize[u.Root(x)] + 1
+}
+
+// aとbが同じ集合に属するか
+func (u *UnionFind) IsSame(a, b int) bool {
+	return u.Root(a) == u.Root(b)
+}
+
+func (u *UnionFind) Groups() map[int][]int {
+	hash := make(map[int][]int)
+	for i := 0; i < u.uSize; i++ {
+		r := u.Root(i)
+		hash[r] = append(hash[r], i)
+	}
+	return hash
 }
 
 func init() {
