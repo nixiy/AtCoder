@@ -502,3 +502,9 @@ func Test_UnionFind(t *testing.T) {
 
 	fmt.Println(uf)
 }
+
+func Test_sqrt(t *testing.T) {
+	assert.Equal(t, 0.0, sqrt(0))
+	assert.Equal(t, 2.0, sqrt(4))
+	assert.Equal(t, 1.4142135623730951, sqrt(2))
+}

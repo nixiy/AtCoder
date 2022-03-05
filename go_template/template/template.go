@@ -57,6 +57,10 @@ func abs(x int) int {
 	}
 }
 
+func sqrt(x int) float64 {
+	return math.Sqrt(float64(x))
+}
+
 // 変数の中身を入れ替える
 func swap(a, b *int) {
 	*b, *a = *a, *b
