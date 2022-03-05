@@ -23,5 +23,7 @@ func ns() string {
 }
 
 func init() {
+	const MaxBuf = 1024 * 1024
+	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
 	sc.Split(bufio.ScanWords)
 }
