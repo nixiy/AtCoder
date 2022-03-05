@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"math"
 	"os"
 	"sort"
@@ -9,6 +10,8 @@ import (
 )
 
 func main() {
+	s := ns()
+	fmt.Println(s)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
@@ -306,5 +309,7 @@ func (u *UnionFind) Groups() map[int][]int {
 }
 
 func init() {
+	const MaxBuf = 1024 * 1024
+	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
 	sc.Split(bufio.ScanWords)
 }
