@@ -40,10 +40,12 @@ func min(x, y int) int {
 	return int(math.Min(float64(x), float64(y)))
 }
 
+// 絶対値で返す
 func abs(x int) int {
 	return int(math.Abs(float64(x)))
 }
 
+// 変数の中身を入れ替える
 func swap(a, b *int) {
 	*b, *a = *a, *b
 }
@@ -266,6 +268,7 @@ func (u *UnionFind) Merge(x, y int) {
 	}
 }
 
+// 自身が属する集合に何要素あるか(自身を含む)
 func (u *UnionFind) Size(x int) int {
 	return u.rSize[u.Root(x)] + 1
 }
