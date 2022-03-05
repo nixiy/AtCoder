@@ -8,8 +8,8 @@ import (
 	"strconv"
 )
 
-const LINK = 0
-const JUDGE = 1
+const MERGE = 0
+const SAME = 1
 
 func solve(N, Q int, queries []Query) {
 	uf := NewUnionFind(N)
@@ -18,7 +18,7 @@ func solve(N, Q int, queries []Query) {
 	for i := 0; i < Q; i++ {
 		q := &queries[i]
 
-		if q.queryType == LINK {
+		if q.queryType == MERGE {
 			uf.Merge(q.a, q.b)
 		} else { // JUDGE
 			if uf.IsSame(q.a, q.b) {

@@ -292,6 +292,8 @@ func Test_max(t *testing.T) {
 		assert.Equal(t, 2, max(1, 2))
 		assert.Equal(t, 2, max(2, 1))
 		assert.Equal(t, 2, max(2, 2))
+		assert.Equal(t, 9223372036854775807, max(2, 9223372036854775807))
+		assert.Equal(t, 2, max(2, -9223372036854775808))
 	})
 }
 
@@ -300,6 +302,8 @@ func Test_min(t *testing.T) {
 		assert.Equal(t, 1, min(1, 2))
 		assert.Equal(t, 1, min(2, 1))
 		assert.Equal(t, 2, min(2, 2))
+		assert.Equal(t, 2, min(2, 9223372036854775807))
+		assert.Equal(t, -9223372036854775808, min(2, -9223372036854775808))
 	})
 }
 

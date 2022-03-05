@@ -3,30 +3,24 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"math"
 	"os"
 	"strconv"
 )
 
-var sc = bufio.NewScanner(os.Stdin)
+const MOD = 998244353
+const INV2 = 499122177
 
-func nextInt() int {
-	sc.Scan()
-	i, _ := strconv.Atoi(sc.Text())
-	return i
+func triangularNumber(x int) int {
+	x %= MOD
+	res := x
+	res *= x + 1
+	res %= MOD
+	res *= INV2
+	res %= MOD
+	return res
 }
 
-func min(x, y int) int {
-	return int(math.Min(float64(x), float64(y)))
-}
-
-func init() {
-	sc.Split(bufio.ScanWords)
-}
-
-// TODO テストケース通らずのコード
 func main() {
-	const MOD = 998244353
 	// x 以下の正整数で、 x と桁数が同じものの数
 	// n桁に着目すると
 	// 1桁: 総数9個
@@ -39,28 +33,40 @@ func main() {
 	// また、とある数値xの個数は以下で求めることができる
 	// x-10^(len(x)) + len(x)-1
 
-	n := nextInt()
-	ans := 0
-	inv2 := invMod(2, MOD) // 2の逆元を求める
-	for i := 1; i <= n; i *= 10 {
-		x := min(n, i*10-1)
-		y := x - i + 1
-		ans += (y + 1) % MOD * (y % MOD) % MOD * inv2 % MOD
+	n := ni()
+
+	res := 0
+	p10 := 10
+	for dg := 1; dg <= 18; dg++ {
+		l := p10 / 10
+		r := min(n, p10-1)
+		if l <= r {
+			res += triangularNumber(r - l + 1)
+			res %= MOD
+		}
+		p10 *= 10
 	}
-	ans = (ans%MOD + MOD) % MOD
-	fmt.Println(ans)
+
+	fmt.Println(res)
 }
 
-// mod M におけるaの逆元を求める
-func invMod(a, M int) int {
-	p, x, u := M, 1, 0
-	for p != 0 {
-		t := a / p
-		a, p = p, a-t*p
-		x, u = u, x-t*u
+var sc = bufio.NewScanner(os.Stdin)
+
+func ni() int {
+	sc.Scan()
+	i, _ := strconv.Atoi(sc.Text())
+	return i
+}
+
+// 小さい方を返す
+func min(x, y int) int {
+	if x < y {
+		return x
+	} else {
+		return y
 	}
-	if x < 0 {
-		x += M
-	}
-	return x
+}
+
+func init() {
+	sc.Split(bufio.ScanWords)
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"math"
 	"os"
 	"sort"
@@ -26,18 +25,27 @@ func ns() string {
 }
 
 // xのy乗
+// TODO: ものすごい大きい値を扱う時用にfloatを挟まないで計算できる関数を用意しておいたほうが良いかもしれない
 func pow(x, y int) int {
 	return int(math.Pow(float64(x), float64(y)))
 }
 
 // でかい方を返す
 func max(x, y int) int {
-	return int(math.Max(float64(x), float64(y)))
+	if x > y {
+		return x
+	} else {
+		return y
+	}
 }
 
 // 小さい方を返す
 func min(x, y int) int {
-	return int(math.Min(float64(x), float64(y)))
+	if x < y {
+		return x
+	} else {
+		return y
+	}
 }
 
 // 絶対値で返す
@@ -93,7 +101,6 @@ func chmax(p *int, v int) {
 // 等差数列の和
 // ただし初項a、項数n、末項lがわかっている場合
 func sumArithmeticProgression_l(n, first, last int) int {
-	fmt.Println("n, first, last: ", n, first, last)
 	return n * (first + last) / 2
 }
 
@@ -257,12 +264,14 @@ func (u *UnionFind) Merge(x, y int) {
 	}
 
 	heightX, heightY := u.height[rootX], u.height[rootY]
-	// 後続処理でXにYを付けるため、Yを小さくしておく
+	// より大きい高さの木のroot配下に小さい木を接続する事で計算量を抑える: Union by Rank
 	if heightX < heightY {
 		swap(&rootX, &rootY)
 	}
-	u.parent[rootY] = rootX
+	u.parent[rootY] = rootX // 木のマージ
 	u.rSize[rootX] = 1 + u.rSize[rootX] + u.rSize[rootY]
+
+	// 同一の高さの木をマージした場合、付け加えられた側の高さが1高くなる
 	if heightX == heightY {
 		u.height[rootX]++
 	}
@@ -278,6 +287,7 @@ func (u *UnionFind) IsSame(a, b int) bool {
 	return u.Root(a) == u.Root(b)
 }
 
+// どのrootがどの集合を持っているかを取得する
 func (u *UnionFind) Groups() map[int][]int {
 	hash := make(map[int][]int)
 	for i := 0; i < u.uSize; i++ {
