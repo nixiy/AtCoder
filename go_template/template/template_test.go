@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
@@ -41,28 +42,15 @@ func Test_uniq(t *testing.T) {
 }
 
 func Test_pow(t *testing.T) {
-	type args struct {
-		x int
-		y int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{name: "1", args: args{x: 0, y: 0}, want: 1},
-		{name: "2", args: args{x: 0, y: 1}, want: 0},
-		{name: "3", args: args{x: 1, y: 0}, want: 1},
-		{name: "4", args: args{x: 1, y: 1}, want: 1},
-		{name: "5", args: args{x: 2, y: 2}, want: 4},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := pow(tt.args.x, tt.args.y); got != tt.want {
-				t.Errorf("pow() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 0, pow(2, -2), "負の指数")
+		assert.Equal(t, 1, pow(0, 0))
+		assert.Equal(t, 0, pow(0, 1))
+		assert.Equal(t, 1, pow(1, 0))
+		assert.Equal(t, 1, pow(1, 1))
+		assert.Equal(t, 4, pow(2, 2))
+		assert.Equal(t, 4, pow(-2, 2))
+	})
 }
 
 func Test_reverse(t *testing.T) {
@@ -244,78 +232,27 @@ func Test_chmax(t *testing.T) {
 }
 
 func Test_sumArithmeticProgression_l(t *testing.T) {
-	type args struct {
-		n     int
-		first int
-		last  int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{
-			args: args{
-				n:     10,
-				first: 1,
-				last:  10,
-			},
-			want: 55,
-		},
-		{
-			args: args{
-				n:     100,
-				first: 1,
-				last:  100,
-			},
-			want: 5050,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := sumArithmeticProgression_l(tt.args.n, tt.args.first, tt.args.last); got != tt.want {
-				t.Errorf("sumArithmeticProgression_l() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 55,
+			sumArithmeticProgression_l(10, 1, 10))
+	})
+
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 5050,
+			sumArithmeticProgression_l(100, 1, 100))
+	})
 }
 
 func Test_sumArithmeticProgression_d(t *testing.T) {
-	type args struct {
-		n     int
-		first int
-		diff  int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{
-			name: "",
-			args: args{
-				n:     10,
-				first: 1,
-				diff:  2,
-			}, want: 100,
-		},
-		{
-			name: "",
-			args: args{
-				n:     100,
-				first: 1,
-				diff:  2,
-			},
-			want: 10000,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := sumArithmeticProgression_d(tt.args.n, tt.args.first, tt.args.diff); got != tt.want {
-				t.Errorf("sumArithmeticProgression_d() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 100,
+			sumArithmeticProgression_d(10, 1, 2))
+	})
+
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 10000,
+			sumArithmeticProgression_d(100, 1, 2))
+	})
 }
 
 func Test_intStack_pushAndPop(t *testing.T) {
@@ -351,71 +288,31 @@ func Test_intQueue_enqueue(t *testing.T) {
 }
 
 func Test_max(t *testing.T) {
-	type args struct {
-		x int
-		y int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{x: 1, y: 2}, want: 2},
-		{args: args{x: 2, y: 1}, want: 2},
-		{args: args{x: 2, y: 2}, want: 2},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := max(tt.args.x, tt.args.y); got != tt.want {
-				t.Errorf("max() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 2, max(1, 2))
+		assert.Equal(t, 2, max(2, 1))
+		assert.Equal(t, 2, max(2, 2))
+		assert.Equal(t, 9223372036854775807, max(2, 9223372036854775807))
+		assert.Equal(t, 2, max(2, -9223372036854775808))
+	})
 }
 
 func Test_min(t *testing.T) {
-	type args struct {
-		x int
-		y int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{x: 1, y: 2}, want: 1},
-		{args: args{x: 2, y: 1}, want: 1},
-		{args: args{x: 1, y: 1}, want: 1},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := min(tt.args.x, tt.args.y); got != tt.want {
-				t.Errorf("min() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 1, min(1, 2))
+		assert.Equal(t, 1, min(2, 1))
+		assert.Equal(t, 2, min(2, 2))
+		assert.Equal(t, 2, min(2, 9223372036854775807))
+		assert.Equal(t, -9223372036854775808, min(2, -9223372036854775808))
+	})
 }
 
 func Test_abs(t *testing.T) {
-	type args struct {
-		x int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{x: 0}, want: 0},
-		{args: args{x: 1}, want: 1},
-		{args: args{x: -1}, want: 1},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := abs(tt.args.x); got != tt.want {
-				t.Errorf("abs() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, 0, abs(0))
+	assert.Equal(t, 1, abs(1))
+	assert.Equal(t, 1, abs(-1))
+	assert.Equal(t, 9223372036854775807, abs(9223372036854775807))
+	assert.Equal(t, 9223372036854775807, abs(-9223372036854775807))
 }
 
 func Test_gcd(t *testing.T) {
@@ -520,4 +417,94 @@ func TestPermute(t *testing.T) {
 			}
 		})
 	}
+}
+
+func Test_swap(t *testing.T) {
+	a := 2
+	b := 3
+	swap(&a, &b)
+	assert.Equal(t, 3, a)
+	assert.Equal(t, 2, b)
+}
+
+func Test_getRune(t *testing.T) {
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, "", getRune("abcde", 10))
+	})
+
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, "d", getRune("abcde", 3))
+	})
+
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, "", getRune("abcde", -1))
+	})
+}
+
+func Test_UnionFind(t *testing.T) {
+	N := 7
+	uf := NewUnionFind(N)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0}, 1: {1}, 2: {2}, 3: {3}, 4: {4}, 5: {5}, 6: {6}})
+
+	uf.Merge(1, 2)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0},
+			1: {1, 2},
+			3: {3}, 4: {4}, 5: {5}, 6: {6}})
+	fmt.Println(uf)
+
+	uf.Merge(2, 3)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0},
+			1: {1, 2, 3},
+			4: {4}, 5: {5}, 6: {6}})
+	fmt.Println(uf)
+
+	uf.Merge(5, 6)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0},
+			1: {1, 2, 3},
+			4: {4},
+			5: {5, 6}})
+	fmt.Println(uf)
+
+	// 既に同じ集合にある場合、変化なし
+	uf.Merge(1, 3)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0},
+			1: {1, 2, 3},
+			4: {4},
+			5: {5, 6}})
+	fmt.Println(uf)
+
+	assert.True(t, uf.IsSame(1, 3))
+	assert.False(t, uf.IsSame(2, 5))
+
+	uf.Merge(1, 6)
+	assert.Equal(t, uf.Groups(),
+		map[int][]int{0: {0},
+			1: {1, 2, 3, 5, 6},
+			4: {4}})
+
+	uf.Merge(4, 3)
+	fmt.Println(uf.Groups())
+
+	// 自身が属する集合の個数
+	assert.Equal(t, 1, uf.Size(0))
+
+	assert.Equal(t, 6, uf.Size(1))
+	assert.Equal(t, 6, uf.Size(2))
+	assert.Equal(t, 6, uf.Size(3))
+	assert.Equal(t, 6, uf.Size(4))
+	assert.Equal(t, 6, uf.Size(5))
+	assert.Equal(t, 6, uf.Size(6))
+
+	fmt.Println(uf)
+}
+
+func Test_sqrt(t *testing.T) {
+	assert.Equal(t, 0.0, sqrt(0))
+	assert.Equal(t, 2.0, sqrt(4))
+	assert.Equal(t, 1.4142135623730951, sqrt(2))
 }

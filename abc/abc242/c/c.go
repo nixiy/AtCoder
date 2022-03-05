@@ -7,11 +7,44 @@ import (
 	"os"
 	"sort"
 	"strconv"
+	"strings"
 )
 
+const MOD = 998244353
+
 func main() {
-	s := ns()
-	fmt.Println(s)
+	n := ni()
+
+	max := int(math.Pow10(n))
+	min := int(math.Pow10(n - 1))
+
+	cnt := 0
+	for i := min; i < max; i++ {
+		// 各桁についてチェック
+		// 0を含んでいたら終了
+		is := strconv.Itoa(i)
+		if strings.Contains(is, "0") {
+			continue
+		}
+
+		ketaCnt := 0
+
+		for j := 0; j < n; j++ {
+			if j+1 < n {
+				a, _ := strconv.Atoi(string(is[j]))
+				b, _ := strconv.Atoi(string(is[j+1]))
+				if abs(a-b) <= 1 {
+					ketaCnt++
+				}
+			}
+		}
+
+		if ketaCnt+1 == n {
+			cnt++
+		}
+	}
+
+	fmt.Println(cnt)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
@@ -309,7 +342,5 @@ func (u *UnionFind) Groups() map[int][]int {
 }
 
 func init() {
-	const MaxBuf = 1024 * 1024
-	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
 	sc.Split(bufio.ScanWords)
 }

@@ -2,20 +2,24 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
-	"strconv"
+	"sort"
+	"strings"
 )
 
+func solve(s string) string {
+	strs := strings.Split(s, "")
+	sort.Strings(strs)
+	return strings.Join(strs, "")
+}
+
 func main() {
+	s := ns()
+	fmt.Println(solve(s))
 }
 
 var sc = bufio.NewScanner(os.Stdin)
-
-func ni() int {
-	sc.Scan()
-	i, _ := strconv.Atoi(sc.Text())
-	return i
-}
 
 func ns() string {
 	sc.Scan()
