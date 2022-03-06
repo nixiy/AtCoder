@@ -534,3 +534,7 @@ func Test_strShift1(t *testing.T) {
 	assert.Equal(t, "WKLV LV D VHFUHW PHVVDJH",
 		strShift("THIS IS A SECRET MESSAGE", 3))
 }
+
+func Test_reverseString(t *testing.T) {
+	assert.Equal(t, "cba", reverseString("abc"))
+}

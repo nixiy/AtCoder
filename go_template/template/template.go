@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"math"
 	"os"
 	"sort"
@@ -10,8 +9,6 @@ import (
 )
 
 func main() {
-	s := ns()
-	fmt.Println(s)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
@@ -138,12 +135,24 @@ func getRune(str string, index int) string {
 
 // sのリバースを返す
 // ex abcd → dcba
+// 10000文字を100000ループ: 7313ms
 func reverse(s string) string {
 	rs := []rune(s)
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		rs[i], rs[j] = rs[j], rs[i]
 	}
 	return string(rs)
+}
+
+// 速度計測の結果、上記のreverseの10倍早かった
+// 参考:
+// 10000文字を100000ループ: 653ms
+func reverseString(s string) string {
+	reversed := make([]byte, len(s))
+	for i := range reversed {
+		reversed[i] = s[len(s)-1-i]
+	}
+	return string(reversed)
 }
 
 type intStack []int

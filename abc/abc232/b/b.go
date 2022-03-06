@@ -15,9 +15,9 @@ func byteShift(s byte, shift int) string {
 	}
 
 	if 'a' <= s && s <= 'z' {
-		return string(((s-'a')+byte(shift))%26 + 'a')
+		return string(((s-'a')+byte(shift))%ALPHABET + 'a')
 	} else if 'A' <= s && s <= 'Z' {
-		return string(((s-'A')+byte(shift))%26 + 'A')
+		return string(((s-'A')+byte(shift))%ALPHABET + 'A')
 	} else {
 		return string(s)
 	}
