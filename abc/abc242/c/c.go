@@ -40,7 +40,7 @@ func solve(N int) int {
 		}
 	}
 
-	// N桁目の1~9の総和を足す
+	// N桁目の1~9で作れるパターンの総和がdp[N]に集約されている
 	sum := 0
 	for digit := 1; digit <= 9; digit++ {
 		add(&sum, dp[N][digit])

@@ -52,6 +52,7 @@ func solve(S, T string) bool {
 	}
 	return true
 }
+
 func main() {
 	S, T := ns(), ns()
 	if solve(S, T) {

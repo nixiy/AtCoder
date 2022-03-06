@@ -526,9 +526,9 @@ func Test_byteShift(t *testing.T) {
 	assert.Equal(t, "z", byteShift('a', -1))
 }
 
-func Test_strShift1(t *testing.T) {
-	assert.Equal(t, "abcABC", strShift("abcABC", 0))
-	assert.Equal(t, "abcABC", strShift("abcABC", 26))
+func Test_strShift(t *testing.T) {
+	assert.Equal(t, "abcABC", strShift("abcABC", 0))  // 同値
+	assert.Equal(t, "abcABC", strShift("abcABC", 26)) // 同値
 	assert.Equal(t, "bcdBCD", strShift("abcABC", 1))
 	assert.Equal(t, "zabZAB", strShift("abcABC", -1))
 	assert.Equal(t, "WKLV LV D VHFUHW PHVVDJH",

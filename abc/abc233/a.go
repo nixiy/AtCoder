@@ -20,6 +20,7 @@ func solve(X, Y int) int {
 		return cnt
 	}
 }
+
 func main() {
 	X, Y := ni(), ni()
 	fmt.Println(solve(X, Y))
