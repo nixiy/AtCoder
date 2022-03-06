@@ -96,17 +96,21 @@ func uniq(input []int) (uniq []int) {
 }
 
 // ex chmin(&p, v)
-func chmin(p *int, v int) {
+func chmin(p *int, v int) bool {
 	if *p > v {
 		*p = v
+		return true
 	}
+	return false
 }
 
 // ex chmax(&p, v)
-func chmax(p *int, v int) {
+func chmax(p *int, v int) bool {
 	if *p < v {
 		*p = v
+		return true
 	}
+	return false
 }
 
 // 等差数列の和
@@ -315,9 +319,9 @@ func byteShift(s byte, shift int) string {
 	}
 
 	if 'a' <= s && s <= 'z' {
-		return string(((s-'a')+byte(shift))%26 + 'a')
+		return string(((s-'a')+byte(shift))%ALPHABET + 'a')
 	} else if 'A' <= s && s <= 'Z' {
-		return string(((s-'A')+byte(shift))%26 + 'A')
+		return string(((s-'A')+byte(shift))%ALPHABET + 'A')
 	} else {
 		return string(s)
 	}

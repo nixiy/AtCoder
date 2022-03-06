@@ -42,10 +42,11 @@ func diff(a, b byte) int {
 }
 
 func solve(S, T string) bool {
-	d := diff(S[0], T[0])
-	for i := 1; i < len(S); i++ {
-		// 文字シフト数が1文字目と異なれば打ち切る
-		if diff(S[i], T[i]) != d {
+	existMap := make(map[int]int)
+	for i := 0; i < len(S); i++ {
+		d := diff(S[i], T[i])
+		existMap[d] = d
+		if len(existMap) > 1 {
 			return false
 		}
 	}

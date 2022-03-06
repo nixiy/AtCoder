@@ -205,13 +205,13 @@ func Test_chmin(t *testing.T) {
 	t.Run("minが置き換わるテスト", func(t *testing.T) {
 		min := 5
 		target := 3
-		chmin(&min, target)
+		assert.True(t, chmin(&min, target))
 		assert.Equal(t, 3, min)
 	})
 	t.Run("minが置き換わらないテスト", func(t *testing.T) {
 		min := 5
 		target := 6
-		chmin(&min, target)
+		assert.False(t, chmin(&min, target))
 		assert.Equal(t, 5, min)
 	})
 }
@@ -220,13 +220,13 @@ func Test_chmax(t *testing.T) {
 	t.Run("maxが置き換わるテスト", func(t *testing.T) {
 		max := 5
 		target := 10
-		chmax(&max, target)
+		assert.True(t, chmax(&max, target))
 		assert.Equal(t, 10, max)
 	})
 	t.Run("maxが置き換わらないテスト", func(t *testing.T) {
 		max := 5
 		target := 2
-		chmax(&max, target)
+		assert.False(t, chmax(&max, target))
 		assert.Equal(t, 5, max)
 	})
 }
