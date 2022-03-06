@@ -308,6 +308,41 @@ func (u *UnionFind) Groups() map[int][]int {
 	return hash
 }
 
+// 対象の1文字をずらす
+func byteShift(s byte, shift int) string {
+	if shift < 0 {
+		shift += ALPHABET
+	}
+
+	if 'a' <= s && s <= 'z' {
+		return string(((s-'a')+byte(shift))%26 + 'a')
+	} else if 'A' <= s && s <= 'Z' {
+		return string(((s-'A')+byte(shift))%26 + 'A')
+	} else {
+		return string(s)
+	}
+}
+
+const ALPHABET = 26
+
+// sをshift文字後ろにずらす O(len(s))
+func strShift(s string, shift int) string {
+	if shift < 0 {
+		shift += ALPHABET
+	}
+
+	shiftedStr := ""
+	for i := 0; i < len(s); i++ {
+		shiftedStr += byteShift(s[i], shift)
+	}
+	return shiftedStr
+}
+
+// aからbまで何文字離れているか
+func diff(a, b byte) int {
+	return (int(b) + ALPHABET - int(a)) % ALPHABET
+}
+
 func init() {
 	const MaxBuf = 1024 * 1024
 	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
