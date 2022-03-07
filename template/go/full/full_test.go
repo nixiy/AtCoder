@@ -205,13 +205,13 @@ func Test_chmin(t *testing.T) {
 	t.Run("minが置き換わるテスト", func(t *testing.T) {
 		min := 5
 		target := 3
-		chmin(&min, target)
+		assert.True(t, chmin(&min, target))
 		assert.Equal(t, 3, min)
 	})
 	t.Run("minが置き換わらないテスト", func(t *testing.T) {
 		min := 5
 		target := 6
-		chmin(&min, target)
+		assert.False(t, chmin(&min, target))
 		assert.Equal(t, 5, min)
 	})
 }
@@ -220,13 +220,13 @@ func Test_chmax(t *testing.T) {
 	t.Run("maxが置き換わるテスト", func(t *testing.T) {
 		max := 5
 		target := 10
-		chmax(&max, target)
+		assert.True(t, chmax(&max, target))
 		assert.Equal(t, 10, max)
 	})
 	t.Run("maxが置き換わらないテスト", func(t *testing.T) {
 		max := 5
 		target := 2
-		chmax(&max, target)
+		assert.False(t, chmax(&max, target))
 		assert.Equal(t, 5, max)
 	})
 }
@@ -507,4 +507,34 @@ func Test_sqrt(t *testing.T) {
 	assert.Equal(t, 0.0, sqrt(0))
 	assert.Equal(t, 2.0, sqrt(4))
 	assert.Equal(t, 1.4142135623730951, sqrt(2))
+}
+
+func Test_diff(t *testing.T) {
+	assert.Equal(t, 0, diff('a', 'a'))
+	assert.Equal(t, 1, diff('a', 'b'))
+	assert.Equal(t, 2, diff('a', 'c'))
+	assert.Equal(t, 1, diff('b', 'c'))
+	assert.Equal(t, 1, diff('z', 'a'))
+	assert.Equal(t, 25, diff('a', 'z'))
+}
+
+func Test_byteShift(t *testing.T) {
+	assert.Equal(t, "a", byteShift('a', 0))  // 同値
+	assert.Equal(t, "a", byteShift('a', 26)) // 同値
+	assert.Equal(t, "b", byteShift('a', 1))
+	assert.Equal(t, "a", byteShift('z', 1))
+	assert.Equal(t, "z", byteShift('a', -1))
+}
+
+func Test_strShift(t *testing.T) {
+	assert.Equal(t, "abcABC", strShift("abcABC", 0))  // 同値
+	assert.Equal(t, "abcABC", strShift("abcABC", 26)) // 同値
+	assert.Equal(t, "bcdBCD", strShift("abcABC", 1))
+	assert.Equal(t, "zabZAB", strShift("abcABC", -1))
+	assert.Equal(t, "WKLV LV D VHFUHW PHVVDJH",
+		strShift("THIS IS A SECRET MESSAGE", 3))
+}
+
+func Test_reverseString(t *testing.T) {
+	assert.Equal(t, "cba", reverseString("abc"))
 }

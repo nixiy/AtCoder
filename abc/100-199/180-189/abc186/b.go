@@ -47,7 +47,7 @@ func main() {
 
 	for _, v := range field {
 		for _, k := range v {
-			nozokuBlock += (k - min)
+			nozokuBlock += k - min
 		}
 	}
 

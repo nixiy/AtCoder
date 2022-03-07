@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"math"
 	"os"
 	"sort"
@@ -10,8 +9,6 @@ import (
 )
 
 func main() {
-	s := ns()
-	fmt.Println(s)
 }
 
 var sc = bufio.NewScanner(os.Stdin)
@@ -96,17 +93,21 @@ func uniq(input []int) (uniq []int) {
 }
 
 // ex chmin(&p, v)
-func chmin(p *int, v int) {
+func chmin(p *int, v int) bool {
 	if *p > v {
 		*p = v
+		return true
 	}
+	return false
 }
 
 // ex chmax(&p, v)
-func chmax(p *int, v int) {
+func chmax(p *int, v int) bool {
 	if *p < v {
 		*p = v
+		return true
 	}
+	return false
 }
 
 // 等差数列の和
@@ -134,12 +135,24 @@ func getRune(str string, index int) string {
 
 // sのリバースを返す
 // ex abcd → dcba
+// 10000文字を100000ループ: 7313ms
 func reverse(s string) string {
 	rs := []rune(s)
 	for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 		rs[i], rs[j] = rs[j], rs[i]
 	}
 	return string(rs)
+}
+
+// 速度計測の結果、上記のreverseの10倍早かった
+// 参考:
+// 10000文字を100000ループ: 653ms
+func reverseString(s string) string {
+	reversed := make([]byte, len(s))
+	for i := range reversed {
+		reversed[i] = s[len(s)-1-i]
+	}
+	return string(reversed)
 }
 
 type intStack []int
@@ -306,6 +319,41 @@ func (u *UnionFind) Groups() map[int][]int {
 		hash[r] = append(hash[r], i)
 	}
 	return hash
+}
+
+// 対象の1文字をずらす
+func byteShift(s byte, shift int) string {
+	if shift < 0 {
+		shift += ALPHABET
+	}
+
+	if 'a' <= s && s <= 'z' {
+		return string(((s-'a')+byte(shift))%ALPHABET + 'a')
+	} else if 'A' <= s && s <= 'Z' {
+		return string(((s-'A')+byte(shift))%ALPHABET + 'A')
+	} else {
+		return string(s)
+	}
+}
+
+const ALPHABET = 26
+
+// sをshift文字後ろにずらす O(len(s))
+func strShift(s string, shift int) string {
+	if shift < 0 {
+		shift += ALPHABET
+	}
+
+	shiftedStr := ""
+	for i := 0; i < len(s); i++ {
+		shiftedStr += byteShift(s[i], shift)
+	}
+	return shiftedStr
+}
+
+// aからbまで何文字離れているか
+func diff(a, b byte) int {
+	return (int(b) + ALPHABET - int(a)) % ALPHABET
 }
 
 func init() {
