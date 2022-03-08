@@ -31,3 +31,9 @@ now := time.Now()
 
 fmt.Printf("経過: %vms\n", time.Since(now).Milliseconds())
 ```
+
+## MapとSlice
+
+非常に大きなmapに入力を取り、その後sliceに変換したらランタイムエラーが出てしまった。 冷静に考えると単純にKey,
+Valueをペアで持ちたい場合、構造体配列で事足りるため、Mapが必要でない箇所で用いすぎないほうが良いかもしれない。
+https://atcoder.jp/contests/abc229/submissions/29960138
