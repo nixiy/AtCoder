@@ -9,12 +9,9 @@ import (
 
 func main() {
 	A, B := ni(), ni()
-	minLen := len(strconv.Itoa(min(A, B)))
 
-	for i := 0; i < minLen; i++ {
-		digA := A % 10
-		digB := B % 10
-		if digA+digB >= 10 {
+	for A != 0 && B != 0 {
+		if (A%10)+(B%10) >= 10 {
 			fmt.Println("Hard")
 			return
 		}
