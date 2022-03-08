@@ -22,14 +22,6 @@ func main() {
 	fmt.Println("Easy")
 }
 
-func min(x, y int) int {
-	if x < y {
-		return x
-	} else {
-		return y
-	}
-}
-
 var sc = bufio.NewScanner(os.Stdin)
 
 func ni() int {
