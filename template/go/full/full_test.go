@@ -538,3 +538,24 @@ func Test_strShift(t *testing.T) {
 func Test_reverseString(t *testing.T) {
 	assert.Equal(t, "cba", reverseString("abc"))
 }
+
+func Test_atoi(t *testing.T) {
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, 1, atoi("1"))
+		assert.Equal(t, 10, atoi("10"))
+		assert.Equal(t, 1, atoi("01"))
+		assert.Equal(t, -1, atoi("-1"))
+		assert.Equal(t, 0, atoi("0xFF"))
+		assert.Equal(t, 0, atoi("0b11111111"))
+	})
+}
+
+func Test_itoa(t *testing.T) {
+	t.Run("", func(t *testing.T) {
+		assert.Equal(t, "1", itoa(1))
+		assert.Equal(t, "10", itoa(10))
+		assert.Equal(t, "-1", itoa(-1))
+		assert.Equal(t, "255", itoa(0xFF))
+		assert.Equal(t, "255", itoa(0b11111111))
+	})
+}
