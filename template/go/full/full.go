@@ -13,24 +13,13 @@ func main() {
 
 var sc = bufio.NewScanner(os.Stdin)
 
-func ni() int {
-	sc.Scan()
-	i, _ := strconv.Atoi(sc.Text())
-	return i
-}
+func ns() string        { sc.Scan(); return sc.Text() }
+func ni() int           { sc.Scan(); return atoi(sc.Text()) }
+func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
+func itoa(i int) string { return strconv.Itoa(i) }
 
-func ns() string {
-	sc.Scan()
-	return sc.Text()
-}
+func pow(x, y int) int { return int(math.Pow(float64(x), float64(y))) }
 
-// xのy乗
-// TODO: ものすごい大きい値を扱う時用にfloatを挟まないで計算できる関数を用意しておいたほうが良いかもしれない
-func pow(x, y int) int {
-	return int(math.Pow(float64(x), float64(y)))
-}
-
-// でかい方を返す
 func max(x, y int) int {
 	if x > y {
 		return x
@@ -57,14 +46,10 @@ func abs(x int) int {
 	}
 }
 
-func sqrt(x int) float64 {
-	return math.Sqrt(float64(x))
-}
+func sqrt(x int) float64 { return math.Sqrt(float64(x)) }
 
 // 変数の中身を入れ替える
-func swap(a, b *int) {
-	*b, *a = *a, *b
-}
+func swap(a, b *int) { *b, *a = *a, *b }
 
 // 最大公約数: greatest common divisor
 func gcd(a, b int) int {
@@ -76,9 +61,7 @@ func gcd(a, b int) int {
 }
 
 // 最小公倍数
-func lcm(a, b int) int {
-	return a * b / gcd(a, b)
-}
+func lcm(a, b int) int { return a * b / gcd(a, b) }
 
 // 数値配列をuniqして返す
 func uniq(input []int) (uniq []int) {
@@ -112,15 +95,11 @@ func chmax(p *int, v int) bool {
 
 // 等差数列の和
 // ただし初項a、項数n、末項lがわかっている場合
-func sumArithmeticProgression_l(n, first, last int) int {
-	return n * (first + last) / 2
-}
+func sumArithmeticProgression_l(n, first, last int) int { return n * (first + last) / 2 }
 
 // 等差数列の和
 // ただし初項a、項数n、公差dがわかっている場合
-func sumArithmeticProgression_d(n, first, diff int) int {
-	return (n / 2) * (2*first + (n-1)*diff)
-}
+func sumArithmeticProgression_d(n, first, diff int) int { return (n / 2) * (2*first + (n-1)*diff) }
 
 // string[i]のように取得するとbyteで取得できてしまう
 // 中間処理でruneを使用して部分文字を取得する
@@ -157,13 +136,8 @@ func reverseString(s string) string {
 
 type intStack []int
 
-func (stack *intStack) empty() bool {
-	return len(*stack) == 0
-}
-
-func (stack *intStack) push(i int) {
-	*stack = append(*stack, i)
-}
+func (stack *intStack) empty() bool { return len(*stack) == 0 }
+func (stack *intStack) push(i int)  { *stack = append(*stack, i) }
 
 func (stack *intStack) pop() int {
 	result := (*stack)[len(*stack)-1]
@@ -173,13 +147,8 @@ func (stack *intStack) pop() int {
 
 type intQueue []int
 
-func (queue *intQueue) empty() bool {
-	return len(*queue) == 0
-}
-
-func (queue *intQueue) enqueue(i int) {
-	*queue = append(*queue, i)
-}
+func (queue *intQueue) empty() bool   { return len(*queue) == 0 }
+func (queue *intQueue) enqueue(i int) { *queue = append(*queue, i) }
 
 func (queue *intQueue) dequeue() int {
 	result := (*queue)[0]
@@ -198,9 +167,7 @@ func itob(x int) string {
 }
 
 // target以上を満たす最小の位置を0-basedの添字で返す
-func lowerBound(a []int, target int) int {
-	return sort.SearchInts(a, target)
-}
+func lowerBound(a []int, target int) int { return sort.SearchInts(a, target) }
 
 // targetより大きい最小の位置を0-basedの添字で返す
 func upperBound(a []int, target int) int {
@@ -302,14 +269,10 @@ func (u *UnionFind) Merge(x, y int) {
 }
 
 // 自身が属する集合に何要素あるか(自身を含む)
-func (u *UnionFind) Size(x int) int {
-	return u.rSize[u.Root(x)] + 1
-}
+func (u *UnionFind) Size(x int) int { return u.rSize[u.Root(x)] + 1 }
 
 // aとbが同じ集合に属するか
-func (u *UnionFind) IsSame(a, b int) bool {
-	return u.Root(a) == u.Root(b)
-}
+func (u *UnionFind) IsSame(a, b int) bool { return u.Root(a) == u.Root(b) }
 
 // どのrootがどの集合を持っているかを取得する
 func (u *UnionFind) Groups() map[int][]int {
@@ -320,6 +283,8 @@ func (u *UnionFind) Groups() map[int][]int {
 	}
 	return hash
 }
+
+const ALPHABET = 26
 
 // 対象の1文字をずらす
 func byteShift(s byte, shift int) string {
@@ -336,8 +301,6 @@ func byteShift(s byte, shift int) string {
 	}
 }
 
-const ALPHABET = 26
-
 // sをshift文字後ろにずらす O(len(s))
 func strShift(s string, shift int) string {
 	if shift < 0 {
@@ -352,9 +315,7 @@ func strShift(s string, shift int) string {
 }
 
 // aからbまで何文字離れているか
-func diff(a, b byte) int {
-	return (int(b) + ALPHABET - int(a)) % ALPHABET
-}
+func diff(a, b byte) int { return (int(b) + ALPHABET - int(a)) % ALPHABET }
 
 func init() {
 	const MaxBuf = 1024 * 1024
