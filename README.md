@@ -83,5 +83,4 @@ func main() {
 ## 累積和
 
 `区間の総和は累積和` 累積和を保持しておいて、`start`から`end`までの和は`sum[end]-sum[start-1]`の`O(1)`で求まる
-
-https://github.com/nixiy/AtCoder/blob/2022-03-13/other/typical90/010.go#L30-L49
+https://github.com/nixiy/AtCoder/blob/3163fea38674e223bcdf11ae59a14bdfe435f4c2/other/typical90/010.go#L28-L49
