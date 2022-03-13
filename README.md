@@ -37,3 +37,45 @@ fmt.Printf("経過: %vms\n", time.Since(now).Milliseconds())
 非常に大きなmapに入力を取り、その後sliceに変換したらランタイムエラーが出てしまった。 冷静に考えると単純にKey,
 Valueをペアで持ちたい場合、構造体配列で事足りるため、Mapが必要でない箇所で用いすぎないほうが良いかもしれない。
 https://atcoder.jp/contests/abc229/submissions/29960138
+
+## bit全探索
+
+`O(N^2)`くらいなのでNがでかいと計算量が爆発する(概ね `N <= 20`くらいが目安)
+
+```go
+package main
+
+func main() {
+	N := ni()
+	a := make([]int, N)
+	for i := 0; i < N; i++ {
+		a[i] = ni()
+	}
+
+	// ビット全探索
+	for i := 0; i < (1 << N); i++ {
+		for j := 1; j <= N; j++ {
+			// 2進数表現したときに1になってる桁の組み合わせが全パターンの組み合わせ
+			if (i & (1 << (j - 1))) != 0 {
+				fmt.Print(j, " ")
+			}
+		}
+		fmt.Println()
+	}
+
+	/*
+	   入力
+	   3
+	   1 2 3
+
+	   出力
+	   1
+	   2
+	   1 2
+	   3
+	   1 3
+	   2 3
+	   1 2 3
+	*/
+}
+```

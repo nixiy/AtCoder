@@ -2,21 +2,27 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
+func factorial(n int) int {
+	if n == 1 {
+		return n
+	} else {
+		return n * factorial(n-1)
+	}
+}
+
 func main() {
-	defer wr.Flush()
+	fmt.Println(factorial(ni()))
 }
 
 var sc = bufio.NewScanner(os.Stdin)
-var wr = bufio.NewWriterSize(os.Stdout, 1024*1024) // 表示量が非常に多い時用
 
 func ni() int           { sc.Scan(); return atoi(sc.Text()) }
-func ns() string        { sc.Scan(); return sc.Text() }
 func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
-func itoa(i int) string { return strconv.Itoa(i) }
 
 func init() {
 	const MaxBuf = 1024 * 1024

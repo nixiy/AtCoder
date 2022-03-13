@@ -2,16 +2,22 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
 func main() {
-	defer wr.Flush()
+	N := ni()
+	for i := 2; i <= N; i++ {
+		if i%1 == 0 && i%i == 0 {
+			fmt.Print(i, " ")
+		}
+	}
+	fmt.Println()
 }
 
 var sc = bufio.NewScanner(os.Stdin)
-var wr = bufio.NewWriterSize(os.Stdout, 1024*1024) // 表示量が非常に多い時用
 
 func ni() int           { sc.Scan(); return atoi(sc.Text()) }
 func ns() string        { sc.Scan(); return sc.Text() }
