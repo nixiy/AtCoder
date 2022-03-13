@@ -2,21 +2,39 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 	"strconv"
 )
 
 func main() {
-	defer wr.Flush()
+	N := ni()
+	if isPrime(N) {
+		fmt.Println("Yes")
+	} else {
+		fmt.Println("No")
+	}
+}
+
+// 高速な素数判定
+func isPrime(N int) bool {
+	if N < 2 {
+		return false
+	} else {
+		// 2 - √N まで調べれば良い
+		for i := 2; i*i <= N; i++ {
+			if N%i == 0 {
+				return false
+			}
+		}
+		return true
+	}
 }
 
 var sc = bufio.NewScanner(os.Stdin)
-var wr = bufio.NewWriterSize(os.Stdout, 1024*1024) // 表示量が非常に多い時用
 
 func ni() int           { sc.Scan(); return atoi(sc.Text()) }
-func ns() string        { sc.Scan(); return sc.Text() }
 func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
-func itoa(i int) string { return strconv.Itoa(i) }
 
 func init() {
 	const MaxBuf = 1024 * 1024

@@ -137,6 +137,8 @@ func reverseString(s string) string {
 type intStack []int
 
 func (stack *intStack) empty() bool { return len(*stack) == 0 }
+func (stack *intStack) first() int  { return (*stack)[0] }
+func (stack *intStack) last() int   { return (*stack)[len(*stack)-1] }
 func (stack *intStack) push(i int)  { *stack = append(*stack, i) }
 
 func (stack *intStack) pop() int {
@@ -316,6 +318,46 @@ func strShift(s string, shift int) string {
 
 // aからbまで何文字離れているか
 func diff(a, b byte) int { return (int(b) + ALPHABET - int(a)) % ALPHABET }
+
+// エラトステネスの篩を用いてn以下の素数を返す
+func prime(N int) (p []int) {
+	isPrimeSlice := make([]bool, N+1)
+	for i := 2; i <= N; i++ {
+		isPrimeSlice[i] = true
+	}
+
+	// エラトステネスの篩
+	for i := 2; i*i <= N; i++ {
+		if isPrimeSlice[i] {
+			for x := 2 * i; x <= N; x += i {
+				isPrimeSlice[x] = false
+			}
+		}
+	}
+
+	for i := 2; i <= N; i++ {
+		if isPrimeSlice[i] {
+			p = append(p, i)
+		}
+	}
+
+	return p
+}
+
+// 高速な素数判定
+func isPrime(N int) bool {
+	if N < 2 {
+		return false
+	} else {
+		// 2 - √N まで調べれば良い
+		for i := 2; i*i <= N; i++ {
+			if N%i == 0 {
+				return false
+			}
+		}
+		return true
+	}
+}
 
 func init() {
 	const MaxBuf = 1024 * 1024

@@ -262,10 +262,18 @@ func Test_intStack_pushAndPop(t *testing.T) {
 		stack.push(2)
 		stack.push(3)
 		assert.True(t, reflect.DeepEqual(stack, intStack{1, 2, 3}))
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 3)
 		assert.Equal(t, 3, stack.pop())
 		assert.False(t, stack.empty())
+
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 2)
 		assert.Equal(t, 2, stack.pop())
 		assert.False(t, stack.empty())
+
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 1)
 		assert.Equal(t, 1, stack.pop())
 		assert.True(t, stack.empty())
 	})
@@ -558,4 +566,42 @@ func Test_itoa(t *testing.T) {
 		assert.Equal(t, "255", itoa(0xFF))
 		assert.Equal(t, "255", itoa(0b11111111))
 	})
+}
+
+func Test_prime(t *testing.T) {
+	type args struct {
+		N int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantP []int
+	}{
+		{args: args{N: -1}, wantP: nil},
+		{args: args{N: 0}, wantP: nil},
+		{name: "素数が1個も無い時nilなので注意",
+			args: args{N: 1}, wantP: nil},
+		{args: args{N: 2}, wantP: []int{2}},
+		{args: args{N: 10}, wantP: []int{2, 3, 5, 7}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotP := prime(tt.args.N); !reflect.DeepEqual(gotP, tt.wantP) {
+				t.Errorf("prime() = %v, want %v", gotP, tt.wantP)
+			}
+		})
+	}
+}
+
+func Test_isPrime(t *testing.T) {
+	assert.False(t, isPrime(-1))
+	assert.False(t, isPrime(0))
+	assert.False(t, isPrime(1))
+
+	assert.True(t, isPrime(2))
+	assert.True(t, isPrime(3))
+	assert.True(t, isPrime(5))
+	assert.True(t, isPrime(7))
+
+	assert.True(t, isPrime(67280421310721))
 }
