@@ -559,3 +559,28 @@ func Test_itoa(t *testing.T) {
 		assert.Equal(t, "255", itoa(0b11111111))
 	})
 }
+
+func Test_prime(t *testing.T) {
+	type args struct {
+		N int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantP []int
+	}{
+		{args: args{N: -1}, wantP: nil},
+		{args: args{N: 0}, wantP: nil},
+		{name: "素数が1個も無い時nilなので注意",
+			args: args{N: 1}, wantP: nil},
+		{args: args{N: 2}, wantP: []int{2}},
+		{args: args{N: 10}, wantP: []int{2, 3, 5, 7}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotP := prime(tt.args.N); !reflect.DeepEqual(gotP, tt.wantP) {
+				t.Errorf("prime() = %v, want %v", gotP, tt.wantP)
+			}
+		})
+	}
+}
