@@ -137,6 +137,8 @@ func reverseString(s string) string {
 type intStack []int
 
 func (stack *intStack) empty() bool { return len(*stack) == 0 }
+func (stack *intStack) first() int  { return (*stack)[0] }
+func (stack *intStack) last() int   { return (*stack)[len(*stack)-1] }
 func (stack *intStack) push(i int)  { *stack = append(*stack, i) }
 
 func (stack *intStack) pop() int {

@@ -262,10 +262,18 @@ func Test_intStack_pushAndPop(t *testing.T) {
 		stack.push(2)
 		stack.push(3)
 		assert.True(t, reflect.DeepEqual(stack, intStack{1, 2, 3}))
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 3)
 		assert.Equal(t, 3, stack.pop())
 		assert.False(t, stack.empty())
+
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 2)
 		assert.Equal(t, 2, stack.pop())
 		assert.False(t, stack.empty())
+
+		assert.Equal(t, stack.first(), 1)
+		assert.Equal(t, stack.last(), 1)
 		assert.Equal(t, 1, stack.pop())
 		assert.True(t, stack.empty())
 	})
