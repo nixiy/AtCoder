@@ -592,3 +592,16 @@ func Test_prime(t *testing.T) {
 		})
 	}
 }
+
+func Test_isPrime(t *testing.T) {
+	assert.False(t, isPrime(-1))
+	assert.False(t, isPrime(0))
+	assert.False(t, isPrime(1))
+
+	assert.True(t, isPrime(2))
+	assert.True(t, isPrime(3))
+	assert.True(t, isPrime(5))
+	assert.True(t, isPrime(7))
+
+	assert.True(t, isPrime(67280421310721))
+}

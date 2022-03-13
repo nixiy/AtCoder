@@ -344,6 +344,21 @@ func prime(N int) (p []int) {
 	return p
 }
 
+// 高速な素数判定
+func isPrime(N int) bool {
+	if N < 2 {
+		return false
+	} else {
+		// 2 - √N まで調べれば良い
+		for i := 2; i*i <= N; i++ {
+			if N%i == 0 {
+				return false
+			}
+		}
+		return true
+	}
+}
+
 func init() {
 	const MaxBuf = 1024 * 1024
 	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
