@@ -60,8 +60,36 @@ func gcd(a, b int) int {
 	}
 }
 
+// 3つ以上の値の最大公約数
+func multiGcd(target []int) (ans int) {
+	if len(target) <= 1 {
+		ans = -1
+	} else {
+		pastGcd := gcd(target[0], target[1])
+		for i := 2; i < len(target); i++ {
+			pastGcd = gcd(pastGcd, target[i])
+		}
+		ans = pastGcd
+	}
+	return ans
+}
+
 // 最小公倍数
-func lcm(a, b int) int { return a * b / gcd(a, b) }
+func lcm(a, b int) int { return b / gcd(a, b) * a }
+
+// 3つ以上の値の最小公倍数
+func multiLcm(target []int) (ans int) {
+	if len(target) <= 1 {
+		ans = -1
+	} else {
+		pastLcm := lcm(target[0], target[1])
+		for i := 2; i < len(target); i++ {
+			pastLcm = lcm(pastLcm, target[i])
+		}
+		ans = pastLcm
+	}
+	return ans
+}
 
 // 数値配列をuniqして返す
 func uniq(input []int) (uniq []int) {
@@ -320,7 +348,9 @@ func strShift(s string, shift int) string {
 func diff(a, b byte) int { return (int(b) + ALPHABET - int(a)) % ALPHABET }
 
 // エラトステネスの篩を用いてn以下の素数を返す
+// 1つも無い時nil
 func prime(N int) (p []int) {
+	p = []int{}
 	isPrimeSlice := make([]bool, N+1)
 	for i := 2; i <= N; i++ {
 		isPrimeSlice[i] = true
@@ -356,6 +386,48 @@ func isPrime(N int) bool {
 			}
 		}
 		return true
+	}
+}
+
+// 高速な約数列挙(未ソート)
+// TODO: 大きな数値を入れるとDelayする(テストを参照)
+func divisor(N int, isSort bool) (div []int) {
+	for i := 1; i*i <= N; i++ {
+		if N%i != 0 {
+			continue
+		}
+		div = append(div, i)
+		if i != N/i {
+			div = append(div, N/i)
+		}
+	}
+	if isSort {
+		sort.Ints(div)
+	}
+	return div
+}
+
+// 高速な素因数分解
+func factorization(N int) (f []int) {
+	for i := 2; i*i <= N; i++ {
+		for N%i == 0 {
+			N /= i
+			f = append(f, i)
+		}
+	}
+	// 素数の最小値以上が残っていれば追加
+	if N >= 2 {
+		f = append(f, N)
+	}
+	return f
+}
+
+// 組み合わせの数nCr
+func comb(n, r int) int {
+	if r == 0 {
+		return 1
+	} else {
+		return comb(n, r-1) * (n - r + 1) / r
 	}
 }
 
