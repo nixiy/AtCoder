@@ -359,6 +359,7 @@ func Test_lcm(t *testing.T) {
 		{args: args{a: 2, b: 3}, want: 6},
 		{args: args{a: 4, b: 6}, want: 12},
 		{args: args{a: 127, b: 32}, want: 4064},
+		{args: args{a: 1000000432, b: 10000037534}, want: 4064},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -662,6 +663,49 @@ func Test_factorization(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if gotF := factorization(tt.args.N); !reflect.DeepEqual(gotF, tt.wantF) {
 				t.Errorf("factorization() = %v, want %v", gotF, tt.wantF)
+			}
+		})
+	}
+}
+
+func Test_multiGcd(t *testing.T) {
+	type args struct {
+		target []int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantAns int
+	}{
+		{args: args{target: []int{1}}, wantAns: -1},
+		{args: args{target: []int{12, 18}}, wantAns: 6},
+		{args: args{target: []int{12, 18, 24}}, wantAns: 6},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotAns := multiGcd(tt.args.target); gotAns != tt.wantAns {
+				t.Errorf("multiGcd() = %v, want %v", gotAns, tt.wantAns)
+			}
+		})
+	}
+}
+
+func Test_multiLcm(t *testing.T) {
+	type args struct {
+		target []int
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantAns int
+	}{
+		{args: args{target: []int{12, 18, 14}}, wantAns: 252},
+		{args: args{target: []int{120, 156, 180}}, wantAns: 4680},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotAns := multiLcm(tt.args.target); gotAns != tt.wantAns {
+				t.Errorf("multiLcm() = %v, want %v", gotAns, tt.wantAns)
 			}
 		})
 	}

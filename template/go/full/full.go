@@ -60,8 +60,36 @@ func gcd(a, b int) int {
 	}
 }
 
+// 3つ以上の値の最大公約数
+func multiGcd(target []int) (ans int) {
+	if len(target) <= 1 {
+		ans = -1
+	} else {
+		pastGcd := gcd(target[0], target[1])
+		for i := 2; i < len(target); i++ {
+			pastGcd = gcd(pastGcd, target[i])
+		}
+		ans = pastGcd
+	}
+	return ans
+}
+
 // 最小公倍数
-func lcm(a, b int) int { return a * b / gcd(a, b) }
+func lcm(a, b int) int { return b / gcd(a, b) * a }
+
+// 3つ以上の値の最小公倍数
+func multiLcm(target []int) (ans int) {
+	if len(target) <= 1 {
+		ans = -1
+	} else {
+		pastLcm := lcm(target[0], target[1])
+		for i := 2; i < len(target); i++ {
+			pastLcm = lcm(pastLcm, target[i])
+		}
+		ans = pastLcm
+	}
+	return ans
+}
 
 // 数値配列をuniqして返す
 func uniq(input []int) (uniq []int) {

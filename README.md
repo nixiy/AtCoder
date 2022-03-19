@@ -84,3 +84,9 @@ func main() {
 
 `区間の総和は累積和` 累積和を保持しておいて、`start`から`end`までの和は`sum[end]-sum[start-1]`の`O(1)`で求まる
 https://github.com/nixiy/AtCoder/blob/3163fea38674e223bcdf11ae59a14bdfe435f4c2/other/typical90/010.go#L28-L49
+
+## 最小公倍数
+意味合いとしては `a * b / gcd(a, b)` だが、先に割っておかないと乗算箇所でオーバーフローしてしまう事があるため、順序を入れ替えている。
+```go
+func lcm(a, b int) int { return b / gcd(a, b) * a }
+```
