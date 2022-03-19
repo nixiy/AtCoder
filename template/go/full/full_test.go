@@ -42,59 +42,25 @@ func Test_uniq(t *testing.T) {
 }
 
 func Test_pow(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 0, pow(2, -2), "負の指数")
-		assert.Equal(t, 1, pow(0, 0))
-		assert.Equal(t, 0, pow(0, 1))
-		assert.Equal(t, 1, pow(1, 0))
-		assert.Equal(t, 1, pow(1, 1))
-		assert.Equal(t, 4, pow(2, 2))
-		assert.Equal(t, 4, pow(-2, 2))
-	})
+	assert.Equal(t, 0, pow(2, -2), "負の指数")
+	assert.Equal(t, 1, pow(0, 0))
+	assert.Equal(t, 0, pow(0, 1))
+	assert.Equal(t, 1, pow(1, 0))
+	assert.Equal(t, 1, pow(1, 1))
+	assert.Equal(t, 4, pow(2, 2))
+	assert.Equal(t, 4, pow(-2, 2))
 }
 
 func Test_reverse(t *testing.T) {
-	type args struct {
-		s string
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{name: "", args: args{s: ""}, want: ""},
-		{name: "", args: args{s: "a"}, want: "a"},
-		{name: "", args: args{s: "abc"}, want: "cba"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := reverse(tt.args.s); got != tt.want {
-				t.Errorf("reverse() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, reverse(""), "")
+	assert.Equal(t, reverse("a"), "a")
+	assert.Equal(t, reverse("abc"), "cba")
 }
 
 func Test_itob(t *testing.T) {
-	type args struct {
-		x int
-	}
-	tests := []struct {
-		name string
-		args args
-		want string
-	}{
-		{name: "", args: args{x: 0}, want: ""},
-		{name: "", args: args{x: 8}, want: "1000"},
-		{name: "", args: args{x: 1024}, want: "10000000000"},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := itob(tt.args.x); got != tt.want {
-				t.Errorf("itob() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, itob(0), "")
+	assert.Equal(t, itob(8), "1000")
+	assert.Equal(t, itob(1024), "10000000000")
 }
 
 func Test_lowerBound(t *testing.T) {
@@ -183,14 +149,12 @@ func Test_upperBound(t *testing.T) {
 			},
 			want: 6,
 		},
-		{
-			name: "",
+
+		{name: "",
 			args: args{
 				a:      []int{2, 2, 2, 3, 3, 3, 4},
 				target: 5,
-			},
-			want: 7,
-		},
+			}, want: 7},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -232,27 +196,17 @@ func Test_chmax(t *testing.T) {
 }
 
 func Test_sumArithmeticProgression_l(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 55,
-			sumArithmeticProgression_l(10, 1, 10))
-	})
-
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 5050,
-			sumArithmeticProgression_l(100, 1, 100))
-	})
+	assert.Equal(t, 55,
+		sumArithmeticProgression_l(10, 1, 10))
+	assert.Equal(t, 5050,
+		sumArithmeticProgression_l(100, 1, 100))
 }
 
 func Test_sumArithmeticProgression_d(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 100,
-			sumArithmeticProgression_d(10, 1, 2))
-	})
-
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 10000,
-			sumArithmeticProgression_d(100, 1, 2))
-	})
+	assert.Equal(t, 100,
+		sumArithmeticProgression_d(10, 1, 2))
+	assert.Equal(t, 10000,
+		sumArithmeticProgression_d(100, 1, 2))
 }
 
 func Test_intStack_pushAndPop(t *testing.T) {
@@ -296,23 +250,19 @@ func Test_intQueue_enqueue(t *testing.T) {
 }
 
 func Test_max(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 2, max(1, 2))
-		assert.Equal(t, 2, max(2, 1))
-		assert.Equal(t, 2, max(2, 2))
-		assert.Equal(t, 9223372036854775807, max(2, 9223372036854775807))
-		assert.Equal(t, 2, max(2, -9223372036854775808))
-	})
+	assert.Equal(t, 2, max(1, 2))
+	assert.Equal(t, 2, max(2, 1))
+	assert.Equal(t, 2, max(2, 2))
+	assert.Equal(t, 9223372036854775807, max(2, 9223372036854775807))
+	assert.Equal(t, 2, max(2, -9223372036854775808))
 }
 
 func Test_min(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 1, min(1, 2))
-		assert.Equal(t, 1, min(2, 1))
-		assert.Equal(t, 2, min(2, 2))
-		assert.Equal(t, 2, min(2, 9223372036854775807))
-		assert.Equal(t, -9223372036854775808, min(2, -9223372036854775808))
-	})
+	assert.Equal(t, 1, min(1, 2))
+	assert.Equal(t, 1, min(2, 1))
+	assert.Equal(t, 2, min(2, 2))
+	assert.Equal(t, 2, min(2, 9223372036854775807))
+	assert.Equal(t, -9223372036854775808, min(2, -9223372036854775808))
 }
 
 func Test_abs(t *testing.T) {
@@ -324,50 +274,18 @@ func Test_abs(t *testing.T) {
 }
 
 func Test_gcd(t *testing.T) {
-	type args struct {
-		a int
-		b int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{a: 6, b: 3}, want: 3},
-		{args: args{a: 28, b: 42}, want: 14},
-		{args: args{a: 465, b: 360}, want: 15},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := gcd(tt.args.a, tt.args.b); got != tt.want {
-				t.Errorf("gcd() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, 3, gcd(6, 3))
+	assert.Equal(t, 14, gcd(28, 42))
+	assert.Equal(t, 15, gcd(465, 360))
 }
 
 func Test_lcm(t *testing.T) {
-	type args struct {
-		a int
-		b int
-	}
-	tests := []struct {
-		name string
-		args args
-		want int
-	}{
-		{args: args{a: 2, b: 3}, want: 6},
-		{args: args{a: 4, b: 6}, want: 12},
-		{args: args{a: 127, b: 32}, want: 4064},
-		{args: args{a: 1000000432, b: 10000037534}, want: 4064},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := lcm(tt.args.a, tt.args.b); got != tt.want {
-				t.Errorf("lcm() = %v, want %v", got, tt.want)
-			}
-		})
-	}
+	assert.Equal(t, 6, lcm(2, 3))
+	assert.Equal(t, 12, lcm(4, 6))
+	assert.Equal(t, 4064, lcm(127, 32))
+	assert.Equal(t, 5000020927008107344,
+		lcm(1000000432, 10000037534),
+		"オーバーフローチェック")
 }
 
 func TestPermute(t *testing.T) {
@@ -437,17 +355,9 @@ func Test_swap(t *testing.T) {
 }
 
 func Test_getRune(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, "", getRune("abcde", 10))
-	})
-
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, "d", getRune("abcde", 3))
-	})
-
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, "", getRune("abcde", -1))
-	})
+	assert.Equal(t, "", getRune("abcde", 10))
+	assert.Equal(t, "d", getRune("abcde", 3))
+	assert.Equal(t, "", getRune("abcde", -1))
 }
 
 func Test_UnionFind(t *testing.T) {
@@ -549,24 +459,20 @@ func Test_reverseString(t *testing.T) {
 }
 
 func Test_atoi(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, 1, atoi("1"))
-		assert.Equal(t, 10, atoi("10"))
-		assert.Equal(t, 1, atoi("01"))
-		assert.Equal(t, -1, atoi("-1"))
-		assert.Equal(t, 0, atoi("0xFF"))
-		assert.Equal(t, 0, atoi("0b11111111"))
-	})
+	assert.Equal(t, 1, atoi("1"))
+	assert.Equal(t, 10, atoi("10"))
+	assert.Equal(t, 1, atoi("01"))
+	assert.Equal(t, -1, atoi("-1"))
+	assert.Equal(t, 0, atoi("0xFF"))
+	assert.Equal(t, 0, atoi("0b11111111"))
 }
 
 func Test_itoa(t *testing.T) {
-	t.Run("", func(t *testing.T) {
-		assert.Equal(t, "1", itoa(1))
-		assert.Equal(t, "10", itoa(10))
-		assert.Equal(t, "-1", itoa(-1))
-		assert.Equal(t, "255", itoa(0xFF))
-		assert.Equal(t, "255", itoa(0b11111111))
-	})
+	assert.Equal(t, "1", itoa(1))
+	assert.Equal(t, "10", itoa(10))
+	assert.Equal(t, "-1", itoa(-1))
+	assert.Equal(t, "255", itoa(0xFF))
+	assert.Equal(t, "255", itoa(0b11111111))
 }
 
 func Test_prime(t *testing.T) {
@@ -578,12 +484,11 @@ func Test_prime(t *testing.T) {
 		args  args
 		wantP []int
 	}{
-		{args: args{N: -1}, wantP: nil},
-		{args: args{N: 0}, wantP: nil},
-		{name: "素数が1個も無い時nilなので注意",
-			args: args{N: 1}, wantP: nil},
-		{args: args{N: 2}, wantP: []int{2}},
-		{args: args{N: 10}, wantP: []int{2, 3, 5, 7}},
+		{name: "", args: args{N: -1}, wantP: []int{}},
+		{name: "", args: args{N: 0}, wantP: []int{}},
+		{name: "", args: args{N: 1}, wantP: []int{}},
+		{name: "", args: args{N: 2}, wantP: []int{2}},
+		{name: "", args: args{N: 10}, wantP: []int{2, 3, 5, 7}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -600,8 +505,6 @@ func Test_isPrime(t *testing.T) {
 	assert.False(t, isPrime(1))
 
 	assert.True(t, isPrime(2))
-	assert.True(t, isPrime(3))
-	assert.True(t, isPrime(5))
 	assert.True(t, isPrime(7))
 
 	assert.True(t, isPrime(67280421310721))
@@ -647,66 +550,24 @@ func Test_divisor(t *testing.T) {
 }
 
 func Test_factorization(t *testing.T) {
-	type args struct {
-		N int
-	}
-	tests := []struct {
-		name  string
-		args  args
-		wantF []int
-	}{
-		// TODO: Add test cases.
-		{args: args{N: 10}, wantF: []int{2, 5}},
-		{args: args{N: 36}, wantF: []int{2, 2, 3, 3}},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if gotF := factorization(tt.args.N); !reflect.DeepEqual(gotF, tt.wantF) {
-				t.Errorf("factorization() = %v, want %v", gotF, tt.wantF)
-			}
-		})
-	}
+	assert.Equal(t, []int{2, 5}, factorization(10))
+	assert.Equal(t, []int{2, 2, 3, 3}, factorization(36))
 }
 
 func Test_multiGcd(t *testing.T) {
-	type args struct {
-		target []int
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantAns int
-	}{
-		{args: args{target: []int{1}}, wantAns: -1},
-		{args: args{target: []int{12, 18}}, wantAns: 6},
-		{args: args{target: []int{12, 18, 24}}, wantAns: 6},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if gotAns := multiGcd(tt.args.target); gotAns != tt.wantAns {
-				t.Errorf("multiGcd() = %v, want %v", gotAns, tt.wantAns)
-			}
-		})
-	}
+	assert.Equal(t, -1, multiGcd([]int{1}))
+	assert.Equal(t, 6, multiGcd([]int{12, 18}))
+	assert.Equal(t, 6, multiGcd([]int{12, 18, 24}))
 }
 
 func Test_multiLcm(t *testing.T) {
-	type args struct {
-		target []int
-	}
-	tests := []struct {
-		name    string
-		args    args
-		wantAns int
-	}{
-		{args: args{target: []int{12, 18, 14}}, wantAns: 252},
-		{args: args{target: []int{120, 156, 180}}, wantAns: 4680},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if gotAns := multiLcm(tt.args.target); gotAns != tt.wantAns {
-				t.Errorf("multiLcm() = %v, want %v", gotAns, tt.wantAns)
-			}
-		})
-	}
+	assert.Equal(t, 252, multiLcm([]int{12, 18, 14}))
+	assert.Equal(t, 4680, multiLcm([]int{120, 156, 180}))
+}
+
+func Test_comb(t *testing.T) {
+	assert.Equal(t, 1, comb(4, 0))
+	assert.Equal(t, 6, comb(4, 2))
+	assert.Equal(t, 1, comb(4, 4))
+	assert.Equal(t, 41417124750, comb(1000, 4))
 }

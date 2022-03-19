@@ -348,7 +348,9 @@ func strShift(s string, shift int) string {
 func diff(a, b byte) int { return (int(b) + ALPHABET - int(a)) % ALPHABET }
 
 // エラトステネスの篩を用いてn以下の素数を返す
+// 1つも無い時nil
 func prime(N int) (p []int) {
+	p = []int{}
 	isPrimeSlice := make([]bool, N+1)
 	for i := 2; i <= N; i++ {
 		isPrimeSlice[i] = true
@@ -388,6 +390,7 @@ func isPrime(N int) bool {
 }
 
 // 高速な約数列挙(未ソート)
+// TODO: 大きな数値を入れるとDelayする(テストを参照)
 func divisor(N int, isSort bool) (div []int) {
 	for i := 1; i*i <= N; i++ {
 		if N%i != 0 {
@@ -417,6 +420,15 @@ func factorization(N int) (f []int) {
 		f = append(f, N)
 	}
 	return f
+}
+
+// 組み合わせの数nCr
+func comb(n, r int) int {
+	if r == 0 {
+		return 1
+	} else {
+		return comb(n, r-1) * (n - r + 1) / r
+	}
 }
 
 func init() {
