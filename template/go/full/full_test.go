@@ -605,3 +605,42 @@ func Test_isPrime(t *testing.T) {
 
 	assert.True(t, isPrime(67280421310721))
 }
+
+func Test_divisor(t *testing.T) {
+	type args struct {
+		N      int
+		isSort bool
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantDiv []int
+	}{
+		{args: args{
+			N:      100,
+			isSort: false,
+		}, wantDiv: []int{1, 100, 2, 50, 4, 25, 5, 20, 10}},
+
+		{args: args{
+			N:      100,
+			isSort: true,
+		}, wantDiv: []int{1, 2, 4, 5, 10, 20, 25, 50, 100}},
+
+		{args: args{
+			N:      827847039317,
+			isSort: false,
+		}, wantDiv: []int{1, 827847039317, 909859, 909863}},
+
+		{args: args{
+			N:      827847039317,
+			isSort: true,
+		}, wantDiv: []int{1, 909859, 909863, 827847039317}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotDiv := divisor(tt.args.N, tt.args.isSort); !reflect.DeepEqual(gotDiv, tt.wantDiv) {
+				t.Errorf("divisor() = %v, want %v", gotDiv, tt.wantDiv)
+			}
+		})
+	}
+}

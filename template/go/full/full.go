@@ -359,6 +359,23 @@ func isPrime(N int) bool {
 	}
 }
 
+// 高速な約数列挙(未ソート)
+func divisor(N int, isSort bool) (div []int) {
+	for i := 1; i*i <= N; i++ {
+		if N%i != 0 {
+			continue
+		}
+		div = append(div, i)
+		if i != N/i {
+			div = append(div, N/i)
+		}
+	}
+	if isSort {
+		sort.Ints(div)
+	}
+	return div
+}
+
 func init() {
 	const MaxBuf = 1024 * 1024
 	sc.Buffer(make([]byte, MaxBuf), MaxBuf)
