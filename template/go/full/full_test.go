@@ -644,3 +644,25 @@ func Test_divisor(t *testing.T) {
 		})
 	}
 }
+
+func Test_factorization(t *testing.T) {
+	type args struct {
+		N int
+	}
+	tests := []struct {
+		name  string
+		args  args
+		wantF []int
+	}{
+		// TODO: Add test cases.
+		{args: args{N: 10}, wantF: []int{2, 5}},
+		{args: args{N: 36}, wantF: []int{2, 2, 3, 3}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if gotF := factorization(tt.args.N); !reflect.DeepEqual(gotF, tt.wantF) {
+				t.Errorf("factorization() = %v, want %v", gotF, tt.wantF)
+			}
+		})
+	}
+}
