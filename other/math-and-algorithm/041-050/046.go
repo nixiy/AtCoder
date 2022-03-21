@@ -8,24 +8,70 @@ import (
 	"strings"
 )
 
-type Coordinate struct {
-	x    int
-	y    int
-	posi int // (x,y)について(0,0):0, (1,0):1, (0,1):y*Widthのように番号をふり、どのマス目なのかを指し示す
+// 幅優先探索
+func bfs(Height, Width, startPosi, goalPosi int, masu [][]string, passable string) int {
+	// 幅優先探索の初期化 dist[h] = -1 の時未到達頂点である
+	dist := make([]int, Height*Width)
+	// 拡頂点に番号を振り、到達可能な頂点番号をスライスで持っている。
+	G := make([][]int, Height*Width) // グラフ
+
+	// 横方向の辺をグラフに追加
+	for h := 0; h < Height; h++ {
+		for w := 0; w < Width-1; w++ {
+			current := h*Width + w
+			next := h*Width + (w + 1)
+			if masu[h][w] == passable && masu[h][w+1] == passable {
+				G[current] = append(G[current], next)
+				G[next] = append(G[next], current)
+			}
+		}
+	}
+
+	// 縦方向の辺をグラフに追加
+	for h := 0; h < Height-1; h++ {
+		for w := 0; w < Width; w++ {
+			current := h*Width + w
+			next := (h+1)*Width + w
+			if masu[h][w] == passable && masu[h+1][w] == passable {
+				// 双方向に追加する
+				G[current] = append(G[current], next)
+				G[next] = append(G[next], current)
+			}
+		}
+	}
+
+	const NOT_REACHED = -1
+	for i := 0; i < Height*Width; i++ {
+		dist[i] = NOT_REACHED
+	}
+
+	var Q intQueue
+	Q.push(startPosi)   // 行動開始1をqueueにセット
+	dist[startPosi] = 0 // スタート地点の最短経路は0通り
+
+	// 幅優先探索
+	for !Q.empty() {
+		pos := Q.pop()
+		// 現在の頂点から行ける未踏の地へ行く
+		for _, next := range G[pos] {
+			if dist[next] == NOT_REACHED {
+				dist[next] = dist[pos] + 1
+				Q.push(next)
+			}
+		}
+	}
+
+	return dist[goalPosi]
 }
 
 func main() {
 	Height, Width := ni(), ni()
 
-	start := Coordinate{}
-	start.y = ni() - 1
-	start.x = ni() - 1
-	start.posi = start.x + start.y*Width
+	sy, sx := ni()-1, ni()-1
+	startPosi := sx + sy*Width
 
-	goal := Coordinate{}
-	goal.y = ni() - 1
-	goal.x = ni() - 1
-	goal.posi = goal.x + goal.y*Width
+	gy, gx := ni()-1, ni()-1
+	goalPosi := gx + gy*Width
 
 	// 盤面初期化 & 入力受け取り
 	masu := make([][]string, Height)
@@ -41,68 +87,20 @@ func main() {
 		}
 	}
 
-	// 拡頂点に番号を振り、到達可能な頂点番号をスライスで持っている。
-	G := make([][]int, Height*Width) // グラフ
-
-	// 横方向の辺をグラフに追加
-	for h := 0; h < Height; h++ {
-		for w := 0; w < Width-1; w++ {
-			idx1 := h*Width + w
-			idx2 := h*Width + (w + 1)
-			if masu[h][w] == "." && masu[h][w+1] == "." {
-				G[idx1] = append(G[idx1], idx2)
-				G[idx2] = append(G[idx2], idx1)
-			}
-		}
-	}
-
-	// 四辺が壁に囲まれているため、index1から開始している
-	for h := 0; h < Height-1; h++ {
-		for w := 0; w < Width; w++ {
-			idx1 := h*Width + w
-			idx2 := (h+1)*Width + w
-			if masu[h][w] == "." && masu[h+1][w] == "." {
-				// 双方向に追加する
-				G[idx1] = append(G[idx1], idx2)
-				G[idx2] = append(G[idx2], idx1)
-			}
-		}
-	}
-
-	// 幅優先探索の初期化 dist[h] = -1 の時未到達頂点である
-	dist := make([]int, Height*Width)
-	const NOT_REACHED = -1
-	for i := 0; i < Height*Width; i++ {
-		dist[i] = NOT_REACHED
-	}
-	var Q intQueue
-	Q.enqueue(start.posi) // 行動開始1をqueueにセット
-	dist[start.posi] = 0  // スタート地点の最短経路は0通り
-
-	// 幅優先探索
-	for !Q.empty() {
-		pos := Q.dequeue()
-		// 現在の頂点から行ける未踏の地へ行く
-		for i := 0; i < len(G[pos]); i++ {
-			next := G[pos][i]
-			if dist[next] == NOT_REACHED {
-				dist[next] = dist[pos] + 1
-				Q.enqueue(next)
-			}
-		}
-	}
+	// 幅優先探索で解く
+	shortestPass := bfs(Height, Width, startPosi, goalPosi, masu, ".")
 
 	// ans
-	fmt.Println(dist[goal.posi])
+	fmt.Println(shortestPass)
 }
 
 type intQueue []int
 
-func (queue *intQueue) empty() bool   { return len(*queue) == 0 }
-func (queue *intQueue) first() int    { return (*queue)[0] }
-func (queue *intQueue) last() int     { return (*queue)[len(*queue)-1] }
-func (queue *intQueue) enqueue(i int) { *queue = append(*queue, i) }
-func (queue *intQueue) dequeue() int {
+func (queue *intQueue) empty() bool { return len(*queue) == 0 }
+func (queue *intQueue) first() int  { return (*queue)[0] }
+func (queue *intQueue) last() int   { return (*queue)[len(*queue)-1] }
+func (queue *intQueue) push(i int)  { *queue = append(*queue, i) }
+func (queue *intQueue) pop() int {
 	result := (*queue)[0]
 	*queue = (*queue)[1:]
 	return result

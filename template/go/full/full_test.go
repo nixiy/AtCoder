@@ -236,15 +236,15 @@ func Test_intStack_pushAndPop(t *testing.T) {
 func Test_intQueue_enqueue(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		var queue intQueue
-		queue.enqueue(1)
-		queue.enqueue(2)
-		queue.enqueue(3)
+		queue.push(1)
+		queue.push(2)
+		queue.push(3)
 		assert.True(t, reflect.DeepEqual(queue, intQueue{1, 2, 3}))
-		assert.Equal(t, 1, queue.dequeue())
+		assert.Equal(t, 1, queue.pop())
 		assert.False(t, queue.empty())
-		assert.Equal(t, 2, queue.dequeue())
+		assert.Equal(t, 2, queue.pop())
 		assert.False(t, queue.empty())
-		assert.Equal(t, 3, queue.dequeue())
+		assert.Equal(t, 3, queue.pop())
 		assert.True(t, queue.empty())
 	})
 }
@@ -593,6 +593,44 @@ func Test_euclidDistance(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := euclidDistance(tt.args.px, tt.args.py, tt.args.qx, tt.args.qy); got != tt.want {
 				t.Errorf("euclidDistance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_bfs(t *testing.T) {
+	type args struct {
+		Height    int
+		Width     int
+		startPosi int
+		goalPosi  int
+		masu      [][]string
+		passable  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{args: args{
+			Height:    5,
+			Width:     8,
+			startPosi: 9,
+			goalPosi:  11,
+			masu: [][]string{
+				{"#", "#", "#", "#", "#", "#", "#", "#"},
+				{"#", ".", "#", ".", ".", ".", ".", "#"},
+				{"#", ".", "#", "#", "#", ".", ".", "#"},
+				{"#", ".", ".", ".", ".", ".", ".", "#"},
+				{"#", "#", "#", "#", "#", "#", "#", "#"},
+			},
+			passable: ".",
+		}, want: 10},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bfs(tt.args.Height, tt.args.Width, tt.args.startPosi, tt.args.goalPosi, tt.args.masu, tt.args.passable); got != tt.want {
+				t.Errorf("bfs() = %v, want %v", got, tt.want)
 			}
 		})
 	}

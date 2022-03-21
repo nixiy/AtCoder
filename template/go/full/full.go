@@ -176,11 +176,11 @@ func (stack *intStack) pop() int {
 
 type intQueue []int
 
-func (queue *intQueue) empty() bool   { return len(*queue) == 0 }
-func (queue *intQueue) first() int    { return (*queue)[0] }
-func (queue *intQueue) last() int     { return (*queue)[len(*queue)-1] }
-func (queue *intQueue) enqueue(i int) { *queue = append(*queue, i) }
-func (queue *intQueue) dequeue() int {
+func (queue *intQueue) empty() bool { return len(*queue) == 0 }
+func (queue *intQueue) first() int  { return (*queue)[0] }
+func (queue *intQueue) last() int   { return (*queue)[len(*queue)-1] }
+func (queue *intQueue) push(i int)  { *queue = append(*queue, i) }
+func (queue *intQueue) pop() int {
 	result := (*queue)[0]
 	*queue = (*queue)[1:]
 	return result
@@ -440,6 +440,62 @@ func euclidDistance(px, py, qx, qy int) float64 {
 	qxf := float64(qx)
 	qyf := float64(qy)
 	return math.Sqrt((pxf-qxf)*(pxf-qxf) + (pyf-qyf)*(pyf-qyf))
+}
+
+// 幅優先探索
+func bfs(Height, Width, startPosi, goalPosi int, masu [][]string, passable string) int {
+	// 幅優先探索の初期化 dist[h] = -1 の時未到達頂点である
+	dist := make([]int, Height*Width)
+	// 拡頂点に番号を振り、到達可能な頂点番号をスライスで持っている。
+	G := make([][]int, Height*Width) // グラフ
+
+	// 横方向の辺をグラフに追加
+	for h := 0; h < Height; h++ {
+		for w := 0; w < Width-1; w++ {
+			current := h*Width + w
+			next := h*Width + (w + 1)
+			if masu[h][w] == passable && masu[h][w+1] == passable {
+				G[current] = append(G[current], next)
+				G[next] = append(G[next], current)
+			}
+		}
+	}
+
+	// 縦方向の辺をグラフに追加
+	for h := 0; h < Height-1; h++ {
+		for w := 0; w < Width; w++ {
+			current := h*Width + w
+			next := (h+1)*Width + w
+			if masu[h][w] == passable && masu[h+1][w] == passable {
+				// 双方向に追加する
+				G[current] = append(G[current], next)
+				G[next] = append(G[next], current)
+			}
+		}
+	}
+
+	const NOT_REACHED = -1
+	for i := 0; i < Height*Width; i++ {
+		dist[i] = NOT_REACHED
+	}
+
+	var Q intQueue
+	Q.push(startPosi)   // 行動開始1をqueueにセット
+	dist[startPosi] = 0 // スタート地点の最短経路は0通り
+
+	// 幅優先探索
+	for !Q.empty() {
+		pos := Q.pop()
+		// 現在の頂点から行ける未踏の地へ行く
+		for _, next := range G[pos] {
+			if dist[next] == NOT_REACHED {
+				dist[next] = dist[pos] + 1
+				Q.push(next)
+			}
+		}
+	}
+
+	return dist[goalPosi]
 }
 
 func init() {
