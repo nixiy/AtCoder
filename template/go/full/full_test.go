@@ -74,7 +74,7 @@ func Test_lowerBound(t *testing.T) {
 		want int
 	}{
 		{
-			name: "",
+			name: "どの要素よりも小さい場合、0が返る。",
 			args: args{
 				a:      []int{2, 2, 2, 3, 3, 3, 4},
 				target: 1,

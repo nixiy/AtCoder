@@ -197,6 +197,8 @@ func itob(x int) string {
 }
 
 // target以上を満たす最小の位置を0-basedの添字で返す
+// リスト内のどの要素よりも大きい場合、len(a)を返す
+// リスト内のどの要素よりも小さい場合、0を返す
 func lowerBound(a []int, target int) int { return sort.SearchInts(a, target) }
 
 // targetより大きい最小の位置を0-basedの添字で返す
