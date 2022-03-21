@@ -434,12 +434,12 @@ func comb(n, r int) int {
 }
 
 // 2次元ユークリッド距離
-func euclidDistance(p1, p2, q1, q2 int) float64 {
-	p1f := float64(p1)
-	p2f := float64(p2)
-	q1f := float64(q1)
-	q2f := float64(q2)
-	return math.Sqrt((p1f-q1f)*(p1f-q1f) + (p2f-q2f)*(p2f-q2f))
+func euclidDistance(px, py, qx, qy int) float64 {
+	pxf := float64(px)
+	pyf := float64(py)
+	qxf := float64(qx)
+	qyf := float64(qy)
+	return math.Sqrt((pxf-qxf)*(pxf-qxf) + (pyf-qyf)*(pyf-qyf))
 }
 
 func init() {

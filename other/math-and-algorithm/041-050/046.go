@@ -62,6 +62,7 @@ func main() {
 			idx1 := h*Width + w
 			idx2 := (h+1)*Width + w
 			if masu[h][w] == "." && masu[h+1][w] == "." {
+				// 双方向に追加する
 				G[idx1] = append(G[idx1], idx2)
 				G[idx2] = append(G[idx2], idx1)
 			}
@@ -70,8 +71,9 @@ func main() {
 
 	// 幅優先探索の初期化 dist[h] = -1 の時未到達頂点である
 	dist := make([]int, Height*Width)
+	const NOT_REACHED = -1
 	for i := 0; i < Height*Width; i++ {
-		dist[i] = -1
+		dist[i] = NOT_REACHED
 	}
 	var Q intQueue
 	Q.enqueue(start.posi) // 行動開始1をqueueにセット
@@ -80,9 +82,10 @@ func main() {
 	// 幅優先探索
 	for !Q.empty() {
 		pos := Q.dequeue()
+		// 現在の頂点から行ける未踏の地へ行く
 		for i := 0; i < len(G[pos]); i++ {
 			next := G[pos][i]
-			if dist[next] == -1 {
+			if dist[next] == NOT_REACHED {
 				dist[next] = dist[pos] + 1
 				Q.enqueue(next)
 			}

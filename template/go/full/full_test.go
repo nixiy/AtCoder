@@ -571,3 +571,29 @@ func Test_comb(t *testing.T) {
 	assert.Equal(t, 1, comb(4, 4))
 	assert.Equal(t, 41417124750, comb(1000, 4))
 }
+
+func Test_euclidDistance(t *testing.T) {
+	type args struct {
+		px int
+		py int
+		qx int
+		qy int
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{args: args{
+			px: 0, py: 0,
+			qx: 1, qy: 1,
+		}, want: 1.4142135623730951},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := euclidDistance(tt.args.px, tt.args.py, tt.args.qx, tt.args.qy); got != tt.want {
+				t.Errorf("euclidDistance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
