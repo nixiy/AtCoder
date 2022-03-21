@@ -74,7 +74,7 @@ func Test_lowerBound(t *testing.T) {
 		want int
 	}{
 		{
-			name: "",
+			name: "どの要素よりも小さい場合、0が返る。",
 			args: args{
 				a:      []int{2, 2, 2, 3, 3, 3, 4},
 				target: 1,
@@ -236,15 +236,15 @@ func Test_intStack_pushAndPop(t *testing.T) {
 func Test_intQueue_enqueue(t *testing.T) {
 	t.Run("", func(t *testing.T) {
 		var queue intQueue
-		queue.enqueue(1)
-		queue.enqueue(2)
-		queue.enqueue(3)
+		queue.push(1)
+		queue.push(2)
+		queue.push(3)
 		assert.True(t, reflect.DeepEqual(queue, intQueue{1, 2, 3}))
-		assert.Equal(t, 1, queue.dequeue())
+		assert.Equal(t, 1, queue.pop())
 		assert.False(t, queue.empty())
-		assert.Equal(t, 2, queue.dequeue())
+		assert.Equal(t, 2, queue.pop())
 		assert.False(t, queue.empty())
-		assert.Equal(t, 3, queue.dequeue())
+		assert.Equal(t, 3, queue.pop())
 		assert.True(t, queue.empty())
 	})
 }
@@ -570,4 +570,68 @@ func Test_comb(t *testing.T) {
 	assert.Equal(t, 6, comb(4, 2))
 	assert.Equal(t, 1, comb(4, 4))
 	assert.Equal(t, 41417124750, comb(1000, 4))
+}
+
+func Test_euclidDistance(t *testing.T) {
+	type args struct {
+		px int
+		py int
+		qx int
+		qy int
+	}
+	tests := []struct {
+		name string
+		args args
+		want float64
+	}{
+		{args: args{
+			px: 0, py: 0,
+			qx: 1, qy: 1,
+		}, want: 1.4142135623730951},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := euclidDistance(tt.args.px, tt.args.py, tt.args.qx, tt.args.qy); got != tt.want {
+				t.Errorf("euclidDistance() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_bfs(t *testing.T) {
+	type args struct {
+		Height    int
+		Width     int
+		startPosi int
+		goalPosi  int
+		masu      [][]string
+		passable  string
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{args: args{
+			Height:    5,
+			Width:     8,
+			startPosi: 9,
+			goalPosi:  11,
+			masu: [][]string{
+				{"#", "#", "#", "#", "#", "#", "#", "#"},
+				{"#", ".", "#", ".", ".", ".", ".", "#"},
+				{"#", ".", "#", "#", "#", ".", ".", "#"},
+				{"#", ".", ".", ".", ".", ".", ".", "#"},
+				{"#", "#", "#", "#", "#", "#", "#", "#"},
+			},
+			passable: ".",
+		}, want: 10},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := bfs(tt.args.Height, tt.args.Width, tt.args.startPosi, tt.args.goalPosi, tt.args.masu, tt.args.passable); got != tt.want {
+				t.Errorf("bfs() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
