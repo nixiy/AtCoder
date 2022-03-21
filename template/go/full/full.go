@@ -168,7 +168,6 @@ func (stack *intStack) empty() bool { return len(*stack) == 0 }
 func (stack *intStack) first() int  { return (*stack)[0] }
 func (stack *intStack) last() int   { return (*stack)[len(*stack)-1] }
 func (stack *intStack) push(i int)  { *stack = append(*stack, i) }
-
 func (stack *intStack) pop() int {
 	result := (*stack)[len(*stack)-1]
 	*stack = (*stack)[:len(*stack)-1]
@@ -178,8 +177,9 @@ func (stack *intStack) pop() int {
 type intQueue []int
 
 func (queue *intQueue) empty() bool   { return len(*queue) == 0 }
+func (queue *intQueue) first() int    { return (*queue)[0] }
+func (queue *intQueue) last() int     { return (*queue)[len(*queue)-1] }
 func (queue *intQueue) enqueue(i int) { *queue = append(*queue, i) }
-
 func (queue *intQueue) dequeue() int {
 	result := (*queue)[0]
 	*queue = (*queue)[1:]
@@ -431,6 +431,15 @@ func comb(n, r int) int {
 	} else {
 		return comb(n, r-1) * (n - r + 1) / r
 	}
+}
+
+// 2次元ユークリッド距離
+func euclidDistance(p1, p2, q1, q2 int) float64 {
+	p1f := float64(p1)
+	p2f := float64(p2)
+	q1f := float64(q1)
+	q2f := float64(q2)
+	return math.Sqrt((p1f-q1f)*(p1f-q1f) + (p2f-q2f)*(p2f-q2f))
 }
 
 func init() {
