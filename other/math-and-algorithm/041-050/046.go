@@ -51,6 +51,24 @@ func bfs(Height, Width, startPosi, goalPosi int, masu [][]string, passable strin
 
 	// 幅優先探索
 	for !Q.empty() {
+		// debug
+		// fmt.Println("==============")
+		// cnt := 0
+		// for i := 0; i < Height*Width; i++ {
+		// 	if dist[i] == -1 {
+		// 		fmt.Print("👺\t")
+		// 	} else {
+		// 		fmt.Print(dist[i], "\t")
+		// 	}
+		//
+		// 	cnt++
+		// 	if cnt == Width {
+		// 		cnt = 0
+		// 		fmt.Println()
+		// 	}
+		// }
+		// fmt.Println("==============")
+
 		pos := Q.pop()
 		// 現在の頂点から行ける未踏の地へ行く
 		for _, next := range G[pos] {
