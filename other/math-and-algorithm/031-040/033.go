@@ -57,15 +57,12 @@ func main() {
 	switch pattern {
 	case 1:
 		ans = sqrt(ba.x*ba.x + ba.y*ba.y)
-		break
 	case 2:
 		S := abs(ba.x*ca.y - ba.y*ca.x)
 		BClen := sqrt(bc.x*bc.x + bc.y*bc.y)
 		ans = float64(S) / float64(BClen)
-		break
 	case 3:
 		ans = sqrt(ca.x*ca.x + ca.y*ca.y)
-		break
 	}
 
 	fmt.Printf("%.12f\n", ans)
