@@ -10,11 +10,7 @@ import (
 
 func main() {
 	N := ni()
-	A := make([]int, N)
-	for i := 0; i < N; i++ {
-		A[i] = ni()
-	}
-
+	A := nis(N)
 	sort.Ints(A)
 
 	for i := 0; i <= 2000; i++ {
@@ -36,6 +32,13 @@ var sc = bufio.NewScanner(os.Stdin)
 
 func ni() int           { sc.Scan(); return atoi(sc.Text()) }
 func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
+func nis(n int) (a []int) {
+	a = make([]int, n)
+	for i := 0; i < n; i++ {
+		a[i] = ni()
+	}
+	return a
+}
 
 func init() {
 	const MaxBuf = 1024 * 1024

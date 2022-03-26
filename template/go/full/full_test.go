@@ -635,3 +635,11 @@ func Test_bfs(t *testing.T) {
 		})
 	}
 }
+
+func Test_anBit(t *testing.T) {
+	assert.Equal(t, 0, anBit(0b0101, 0))
+	assert.Equal(t, 1, anBit(0b0101, 1))
+	assert.Equal(t, 0, anBit(0b0101, 2))
+	assert.Equal(t, 1, anBit(0b0101, 3))
+	assert.Equal(t, 0, anBit(0b0101, 4))
+}

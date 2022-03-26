@@ -498,6 +498,9 @@ func bfs(Height, Width, startPosi, goalPosi int, masu [][]string, passable strin
 	return dist[goalPosi]
 }
 
+// aのnビット目を返す
+func anBit(a int, n int) int { return int((a >> uint(n-1)) & 1) }
+
 func init() {
 	const MaxBuf = 1024 * 1024
 	sc.Buffer(make([]byte, MaxBuf), MaxBuf)

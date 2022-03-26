@@ -9,15 +9,8 @@ import (
 
 func main() {
 	N, K := ni(), ni()
-	A := make([]int, N)
-	B := make([]int, N)
-
-	for i := 0; i < N; i++ {
-		A[i] = ni()
-	}
-	for i := 0; i < N; i++ {
-		B[i] = ni()
-	}
+	A := nis(N)
+	B := nis(N)
 
 	dp := make([][2]bool, N) // dp[Xn][Ai, Bi]
 	iA, iB := 0, 1
@@ -58,6 +51,13 @@ var sc = bufio.NewScanner(os.Stdin)
 
 func ni() int           { sc.Scan(); return atoi(sc.Text()) }
 func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
+func nis(n int) (a []int) {
+	a = make([]int, n)
+	for i := 0; i < n; i++ {
+		a[i] = ni()
+	}
+	return a
+}
 
 // 絶対値で返す
 func abs(x int) int {
