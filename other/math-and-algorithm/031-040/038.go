@@ -12,7 +12,7 @@ type Day struct {
 }
 
 func main() {
-	defer wr.Flush()
+	defer wr.Flush() // 最大100000行出力するため高速化
 	N, Q := ni(), ni()
 	A := make([]int, N)
 	D := make([]Day, Q)
@@ -22,8 +22,8 @@ func main() {
 	}
 
 	for i := 0; i < Q; i++ {
-		D[i].L = ni() - 1
-		D[i].R = ni() - 1
+		D[i].L = ni() - 1 // 0indexedにしておく
+		D[i].R = ni() - 1 // 0indexedにしておく
 	}
 
 	// 累積和の作成
@@ -35,6 +35,7 @@ func main() {
 		}
 	}
 
+	// 累積和の配列をsumとすると、LからRまでの和は sum[R] - sum[L-1] のO(1)で処理可能
 	for i := 0; i < Q; i++ {
 		l := D[i].L
 		r := D[i].R
