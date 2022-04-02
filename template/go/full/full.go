@@ -18,6 +18,22 @@ func ni() int           { sc.Scan(); return atoi(sc.Text()) }
 func atoi(a string) int { i, _ := strconv.Atoi(a); return i }
 func itoa(i int) string { return strconv.Itoa(i) }
 
+func nis(n int) (a []int) {
+	a = make([]int, n)
+	for i := 0; i < n; i++ {
+		a[i] = ni()
+	}
+	return a
+}
+
+func nss(n int) (s []string) {
+	s = make([]string, n)
+	for i := 0; i < n; i++ {
+		s[i] = ns()
+	}
+	return s
+}
+
 func pow(x, y int) int { return int(math.Pow(float64(x), float64(y))) }
 
 func max(x, y int) int {
